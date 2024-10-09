@@ -55,7 +55,7 @@ struct ContentView: View {
             }
             .foregroundStyle(.white)
             .position(x: CGFloat(x), y: CGFloat(120))
-            .animation(.linear(duration: 6).repeatForever(autoreverses: false), value: x)
+            .animation(.linear(duration: 55).repeatForever(autoreverses: false), value: x)
             .shadow(color: .black.opacity(0.2), radius: 30, x: 100, y: 600)
             
             Button(){
