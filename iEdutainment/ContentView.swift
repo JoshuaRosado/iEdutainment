@@ -15,6 +15,9 @@ struct ContentView: View {
     @State private var appWasOpened = false
     @State private var play = false
     @State private var x = -150
+    
+    @State private var didGameEnd = false
+    @State private var numberOfQuestions = 0
 
     var body: some View {
         
