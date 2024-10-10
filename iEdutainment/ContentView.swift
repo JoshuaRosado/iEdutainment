@@ -8,13 +8,15 @@
 import SwiftUI
 
 
+
 struct ContentView: View {
     @State private var difficultyRange = ["Easy", "Medium", "Hard"]
     @State private var amountOfQuestions = 0
     @State private var randomQuestion = Int.random(in: 0...12)
     @State private var appWasOpened = false
     @State private var play = false
-    @State private var x = -150
+    @State private var positionLowerCloud = -150
+    @State private var positionUpperCloud = 0
     
     @State private var didGameEnd = false
     @State private var numberOfQuestions = 0
@@ -40,6 +42,9 @@ struct ContentView: View {
                         .position(x: 200, y: -200)
                 }.foregroundStyle(.white)
 
+                    .position(x: CGFloat(positionLowerCloud), y: CGFloat(-50))
+                    .animation(.linear(duration: 25).repeatForever(autoreverses: false), value: positionLowerCloud)
+                    .shadow(color: .black.opacity(0.2), radius: 30, x: 100, y: 600)
 
             }
             VStack{
@@ -57,19 +62,20 @@ struct ContentView: View {
                     .position(x: 180, y: -200)
             }
             .foregroundStyle(.white)
-            .position(x: CGFloat(x), y: CGFloat(120))
-            .animation(.linear(duration: 55).repeatForever(autoreverses: false), value: x)
+            .position(x: CGFloat(positionUpperCloud), y: CGFloat(120))
+            .animation(.linear(duration: 45).repeatForever(autoreverses: false), value: positionUpperCloud)
             .shadow(color: .black.opacity(0.2), radius: 30, x: 100, y: 600)
             
             Button(){
                 play.toggle()
                 withAnimation{
-                    x = 800
+                    positionLowerCloud = 900
+                    positionUpperCloud = 800
                 
                 }
                 
             } label: {
-                Text(play ? "Clicked": "Click")
+                Text(play ? "Started": "Start")
                     
             }
         }
