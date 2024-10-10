@@ -100,11 +100,12 @@ struct ContentView: View {
                     
             }
             .buttonStyle(.borderedProminent)
+            .tint(.white.opacity(0.5))
             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
             .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
             .buttonBorderShape(.roundedRectangle)
             .controlSize(.large)
-            .foregroundStyle(.white)
+            .foregroundStyle(.secondary)
             .font(.system(size: 30, weight: .semibold, design: .default))
         }
         
