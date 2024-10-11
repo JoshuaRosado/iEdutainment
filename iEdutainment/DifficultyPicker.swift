@@ -13,11 +13,22 @@ struct DiffcultyPickerView: View {
     @State private var selectedDifficulty = "Easy"
     
     var body: some View{
-        Picker("Difficulty", selection: $selectedDifficulty){
-            ForEach(difficultyRange, id: \.self){
-                Text($0)
+        VStack{
+            
+            
+            Text("Choose difficulty")
+                .font(.title).foregroundStyle(.white)
+            
+            Picker("Difficulty", selection: $selectedDifficulty){
+                ForEach(difficultyRange, id: \.self){
+                    Text($0)
+                }
             }
+            
+            .pickerStyle(.segmented)
+            .padding(50)
+            
+            //        Text("Difficulty: \(selectedDifficulty)")
         }
-        Text("Difficulty: \(selectedDifficulty)")
     }
 }

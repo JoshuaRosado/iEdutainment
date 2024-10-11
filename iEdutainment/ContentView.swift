@@ -46,23 +46,15 @@ struct ContentView: View {
             .opacity(play ? 0 : 1)
             
             if play{
-                withAnimation{
                     ZStack{
                         Rectangle()
-                            .frame(width: 400, height: 400)
-                            .background(.red)
+                            .background(.thinMaterial).opacity(0.6)
+                            .ignoresSafeArea()
                         DiffcultyPickerView()
                     }
-                    
-                }
+                    .animation(.linear, value: play)
             }
-
-                
-
         }
-        
-        
-        
     }
 }
 
