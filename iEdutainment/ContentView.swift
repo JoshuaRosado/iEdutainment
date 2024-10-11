@@ -8,7 +8,9 @@
 import SwiftUI
 
 
+
 struct ContentView: View {
+    @State private var difficultyValue = 0
     @State private var difficultyRange = ["Easy", "Medium", "Hard"]
     @State private var amountOfQuestions = 0
     @State private var randomQuestion = Int.random(in: 0...12)
@@ -18,7 +20,6 @@ struct ContentView: View {
     @State private var positionUpperCloud: Double = 0
     
     @State private var didGameEnd = false
-    @State private var numberOfQuestions = 0
 
     var body: some View {
         
@@ -37,20 +38,27 @@ struct ContentView: View {
                 withAnimation{
                     positionLowerCloud = 900
                     positionUpperCloud = 800
-                
                 }
-                
             } label: {
-                Text(play ? "Started": "Start")
-                    
+                Text("Play")
             }
+            .addStylePlayBtn()
+            .opacity(play ? 0 : 1)
             
-            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-            .buttonBorderShape(.roundedRectangle)
-            .controlSize(.large)
-            .foregroundStyle(.white)
-            .font(.system(size: 30, weight: .semibold, design: .default))
+            if play{
+                withAnimation{
+                    ZStack{
+                        Rectangle()
+                            .frame(width: 400, height: 400)
+                            .background(.red)
+                        DiffcultyPickerView()
+                    }
+                    
+                }
+            }
+
+                
+
         }
         
         
