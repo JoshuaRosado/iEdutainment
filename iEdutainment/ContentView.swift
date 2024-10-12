@@ -48,12 +48,13 @@ struct ContentView: View {
             if play{
                     ZStack{
                         Rectangle()
-                            .background(.thinMaterial).opacity(0.6)
+                            .background(.ultraThinMaterial)
                             .ignoresSafeArea()
-                        DiffcultyPickerView()
+                        SettingsView()
                     }
                     .animation(.linear, value: play)
             }
+            
         }
     }
 }
