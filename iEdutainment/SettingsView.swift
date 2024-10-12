@@ -9,15 +9,27 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var value = 0
+    @State private var multiplicationTableSelected = 0
     let difficultyRange = ["Easy", "Medium", "Hard"]
-
     @State private var selectedDifficulty = "Easy"
     
     
     var body: some View{
         List{
+            VStack(alignment: .center){
+                Text("multiplication table").font(.title).foregroundStyle(.secondary)
+                
+                Picker("", selection: $multiplicationTableSelected) {
+                    ForEach(Array(stride(from: 0, to: 13, by: 1)), id: \.self) { index in
+                        Text("\(index)")
+                    }
+                    
+                } .pickerStyle(.wheel)
+            } .frame(height: 200)
+           
+            
             Section{
-                Text("Choose difficulty")
+                Text("difficulty")
                     .font(.title).foregroundStyle(.secondary)
                 
                 Picker("Difficulty", selection: $selectedDifficulty){
@@ -26,8 +38,11 @@ struct SettingsView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                .padding(50)
+                .padding(15)
                 
+            }
+            Section{
+                Text("")
             }
             
         }
