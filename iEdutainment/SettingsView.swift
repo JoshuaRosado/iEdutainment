@@ -7,17 +7,34 @@
 
 import SwiftUI
 
+struct TitleText: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title).foregroundStyle(.secondary)
+    }
+}
+
+extension View {
+    func titleStyle() -> some View {
+        modifier(TitleText())
+    }
+}
+
 struct SettingsView: View {
     @State private var value = 0
     @State private var multiplicationTableSelected = 0
+    let amountOfQuestions = [5,10,20]
+    @State private var questionAmount = 0
     let difficultyRange = ["Easy", "Medium", "Hard"]
     @State private var selectedDifficulty = "Easy"
     
     
     var body: some View{
         List{
+            //====================== PICKER FOR MULT TABLE
+            
             VStack(alignment: .center){
-                Text("multiplication table").font(.title).foregroundStyle(.secondary)
+                Text("multiplication table").titleStyle()
                 
                 Picker("", selection: $multiplicationTableSelected) {
                     ForEach(Array(stride(from: 0, to: 13, by: 1)), id: \.self) { index in
@@ -27,10 +44,11 @@ struct SettingsView: View {
                 } .pickerStyle(.wheel)
             } .frame(height: 200)
            
+            //================= PICKER FOR DIFFICULTY
             
             Section{
                 Text("difficulty")
-                    .font(.title).foregroundStyle(.secondary)
+                    .titleStyle()
                 
                 Picker("Difficulty", selection: $selectedDifficulty){
                     ForEach(difficultyRange, id: \.self){
@@ -42,7 +60,14 @@ struct SettingsView: View {
                 
             }
             Section{
-                Text("")
+                Text("questions")
+                    .titleStyle()
+                Picker("", selection: $questionAmount){
+                    ForEach(amountOfQuestions, id: \.self){
+                        Text(String($0))
+                    }
+                }
+                
             }
             
         }
