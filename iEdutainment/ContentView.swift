@@ -32,21 +32,27 @@ struct ContentView: View {
                 Clouds(lowerCloud: positionLowerCloud, upperCloud: positionUpperCloud)
             
             // ====== Play/ Start Button
-            
-            Button(){
-                
-                withAnimation(.linear(duration: 1.5)){
-                    play.toggle()
-                    positionLowerCloud = 900
-                    positionUpperCloud = 800
+            VStack{
+                Spacer()
+                Text("Multiplication"
+                ).font(.system(size: 45, weight: .semibold, design: .rounded)).foregroundStyle(.blue.opacity(0.5)).fontWeight(.semibold).padding(.bottom)
+                    .shadow(color: Color.white.opacity(0.6), radius: 4, x: 3, y: 3)
+                    .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                Button(){
+                    
+                    withAnimation(.linear(duration: 1.0)){
+                        play.toggle()
+                        positionLowerCloud = 900
+                        positionUpperCloud = 800
                         
+                    }
+                } label: {
+                    Text("Play")
                 }
-            } label: {
-                Text("Play")
+                .addStylePlayBtn()
+                .opacity(play ? 0 : 1)
+                Spacer()
             }
-            .addStylePlayBtn()
-            .opacity(play ? 0 : 1)
-            
             if play{
                     ZStack{
                         Rectangle()
