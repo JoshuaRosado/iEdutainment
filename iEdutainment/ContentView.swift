@@ -34,10 +34,12 @@ struct ContentView: View {
             // ====== Play/ Start Button
             
             Button(){
-                play.toggle()
-                withAnimation{
+                
+                withAnimation(.linear(duration: 1.5)){
+                    play.toggle()
                     positionLowerCloud = 900
                     positionUpperCloud = 800
+                        
                 }
             } label: {
                 Text("Play")
