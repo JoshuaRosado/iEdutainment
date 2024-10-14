@@ -18,6 +18,22 @@ struct PlayButtonStyle : ViewModifier {
             .controlSize(.large)
             .foregroundStyle(.white)
             .font(.system(size: 30, weight: .semibold, design: .default))
+        
+        
+        HStack{
+            Image("giraffe", bundle: .main)
+                .resizable()
+                .frame(width: 50, height: 50)
+            Image("elephant", bundle: .main)
+                .resizable()
+                .frame(width: 50, height: 50)
+            Image("penguin", bundle: .main)
+                .resizable()
+                .frame(width: 50, height: 50)
+            Image("cow", bundle: .main)
+                .resizable()
+                .frame(width: 50, height: 50)
+        }
     }
 }
     
