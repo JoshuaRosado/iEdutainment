@@ -23,16 +23,23 @@ struct PlayButtonStyle : ViewModifier {
         HStack{
             Image("giraffe", bundle: .main)
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 100, height: 100)
             Image("elephant", bundle: .main)
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 100, height: 100)
             Image("penguin", bundle: .main)
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 100, height: 100)
+        }
+        .padding(.top, 25)
+        HStack{
             Image("cow", bundle: .main)
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 100, height: 100)
+            Image("frog", bundle: .main)
+                .resizable()
+                .frame(width: 100, height: 100)
+            
         }
     }
 }
