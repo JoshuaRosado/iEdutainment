@@ -17,9 +17,10 @@ struct PlayButtonStyle : ViewModifier {
             .buttonBorderShape(.roundedRectangle)
             .controlSize(.large)
             .foregroundStyle(.white)
-            .font(.system(size: 30, weight: .semibold, design: .default))
+            .padding(.top, 15)
+            .font(.system(size: 32, weight: .semibold, design: .rounded))
         
-        
+         
         HStack{
             Image("giraffe", bundle: .main)
                 .resizable()
@@ -31,7 +32,7 @@ struct PlayButtonStyle : ViewModifier {
                 .resizable()
                 .frame(width: 100, height: 100)
         }
-        .padding(.top, 25)
+        .padding(.top, 45)
         HStack{
             Image("cow", bundle: .main)
                 .resizable()
