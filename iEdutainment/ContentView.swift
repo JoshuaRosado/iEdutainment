@@ -36,8 +36,10 @@ struct ContentView: View {
             VStack{
                 Spacer()
                 
-                Text("Multiplication"
-                )
+                 if colorScheme == .light {
+                    Text("Multiplication").mainTitleLight()
+                 } else { Text("Multiplication").mainTitleDark()}
+                
                 Button(){
                     
                     withAnimation(.linear(duration: 0.8)){
