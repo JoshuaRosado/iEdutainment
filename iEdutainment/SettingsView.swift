@@ -20,6 +20,9 @@ extension View {
     }
 }
 
+
+
+
 struct SettingsView: View {
     @State private var value = 0
     @State private var multiplicationTableSelected = 0

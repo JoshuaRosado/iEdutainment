@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var difficultyValue = 0
     @State private var difficultyRange = ["Easy", "Medium", "Hard"]
     @State private var amountOfQuestions = 0
@@ -25,7 +26,7 @@ struct ContentView: View {
         
         ZStack{
             // ===== BG sky and sun
-            RadialGradient(colors: [.red,.orange, .yellow, .blue.opacity(0.5)], center: .topLeading, startRadius: 50, endRadius: 300)
+            RadialGradient(colors: (colorScheme == .light ? [.red,.orange, .yellow, .blue.opacity(0.5)] : [.white,.white, .white.opacity(0.8), .blue.opacity(0.5)]) , center: .topLeading, startRadius: 50, endRadius: 300)
                 .ignoresSafeArea()
             
             // ====== Clouds with animation
@@ -36,9 +37,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Text("Multiplication"
-                ).font(.system(size: 45, weight: .semibold, design: .rounded)).foregroundStyle(.blue.opacity(0.5)).fontWeight(.semibold).padding(.bottom)
-                    .shadow(color: Color.white.opacity(0.6), radius: 4, x: 3, y: 3)
-                    .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                )
                 Button(){
                     
                     withAnimation(.linear(duration: 0.8)){
