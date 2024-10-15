@@ -32,6 +32,11 @@ struct SettingsView: View {
     var body: some View{
         List{
             //====================== PICKER FOR MULT TABLE
+            Section{
+                Text("Settings")
+                    .titleStyle()
+                
+            }
             
             VStack(alignment: .center){
                 Text("multiplication table").titleStyle()

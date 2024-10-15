@@ -30,7 +30,7 @@ struct Clouds: View {
                     .position(x: 200, y: -200)
             }
             .foregroundStyle(.white)
-            .position(x: CGFloat(lowerCloud), y: CGFloat(-50))
+            .position(x: CGFloat(lowerCloud), y: CGFloat(-100))
             .animation(.linear(duration: 25).repeatForever(autoreverses: false), value: lowerCloud)
             .shadow(color: .black.opacity(0.2), radius: 30, x: 100, y: 600)
         }
