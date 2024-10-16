@@ -58,7 +58,36 @@ struct ContentView: View {
                     positionLowerCloud = 900
                     positionUpperCloud = 800
                 })
+                
+                HStack{
+                    
+                    
+                    Circle().stroke(.green, lineWidth: 15)
+                        .fill(.green)
+                        .frame(width: 300)
+                        
+                        .padding(.bottom, -120)
+                        .padding(.trailing, -40)
+                        
+                    Circle()
+                        .frame(width:190)
+                        .foregroundStyle(.green)
+                        .padding(.bottom, -120)
+                        .padding(.trailing, 50)
+
+                }
+                .zIndex(-1)
+                Color.green
+                    .frame(height: 120)
+                    .padding(.top, -50)
+                    .padding(.bottom, -50)
+                
+                    
+                    
+                
+                    
             }
+            
             if play{
                     ZStack{
                         Rectangle()
