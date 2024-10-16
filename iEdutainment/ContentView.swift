@@ -61,23 +61,31 @@ struct ContentView: View {
                 
                 HStack{
                     
-                    
-                    Circle().stroke(.green, lineWidth: 15)
-                        .fill(.green)
-                        .frame(width: 300)
+                    Circle()
+                        .frame(maxWidth: 350)
+                        .foregroundStyle(.green).brightness(0.1)
+                        .zIndex(1)
                         
-                        .padding(.bottom, -120)
-                        .padding(.trailing, -40)
+                    
+                    Circle()
+                        .frame(maxWidth: 265)
+                        .foregroundStyle(.green).brightness(0.1)
+                        .zIndex(1)
                         
                     Circle()
-                        .frame(width:190)
-                        .foregroundStyle(.green)
-                        .padding(.bottom, -120)
-                        .padding(.trailing, 50)
+                        .frame(maxWidth:180)
+                        .foregroundStyle(.green).brightness(0.0)
+
+                    
+                    Circle()
+                        .frame(maxWidth:270)
+                        .foregroundStyle(.green).brightness(0.0)
+                        .zIndex(-1)
+                        
 
                 }
                 .zIndex(-1)
-                Color.green
+                Color.green.brightness(0.09)
                     .frame(height: 120)
                     .padding(.top, -50)
                     .padding(.bottom, -50)
