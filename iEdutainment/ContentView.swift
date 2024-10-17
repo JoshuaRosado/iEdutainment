@@ -30,7 +30,8 @@ struct ContentView: View {
                 .ignoresSafeArea()
             
             // ====== Clouds with animation
-                Clouds(lowerCloud: positionLowerCloud, upperCloud: positionUpperCloud)
+            Clouds(lowerCloud: positionLowerCloud, upperCloud: positionUpperCloud)
+            
             
             // ====== Play/ Start Button
             VStack{
@@ -54,7 +55,11 @@ struct ContentView: View {
                     })
                     
                 }
-                .position(x: 200, y: 350)
+                .buttonStyle(.borderedProminent)
+                .tint(.primary)
+                
+                .position(x: 200, y: 375)
+                
                 HStack{
                     
                     Circle()
@@ -86,7 +91,6 @@ struct ContentView: View {
 
                 }
     
-                .zIndex(-1)
                 Color.green.brightness(0.09)
                     .frame(height: 100)
                     .padding(.bottom, -50)
