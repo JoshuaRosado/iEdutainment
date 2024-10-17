@@ -39,17 +39,22 @@ extension View {
 }
 
 struct PlayButtonStyle : ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
     
     func body(content: Content) -> some View {
+        if colorScheme == .light {
+           Text("Multiplication").mainTitleLight()
+        } else { Text("Multiplication").mainTitleDark()}
         
         content
+        
         
             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
             .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
             .buttonBorderShape(.roundedRectangle)
             .controlSize(.large)
             .foregroundStyle(.white)
-            .padding(.top, 15)
+
             .font(.system(size: 32, weight: .semibold, design: .rounded))
         
          
@@ -64,7 +69,7 @@ struct PlayButtonStyle : ViewModifier {
                 .resizable()
                 .frame(width: 100, height: 100)
         }
-        .padding(.top, 45)
+        
         HStack{
             Image("cow", bundle: .main)
                 .resizable()
@@ -74,7 +79,6 @@ struct PlayButtonStyle : ViewModifier {
                 .frame(width: 100, height: 100)
             
         }
-        .padding(.bottom, -200)
     }
 }
     

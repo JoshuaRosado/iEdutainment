@@ -34,60 +34,61 @@ struct ContentView: View {
             
             // ====== Play/ Start Button
             VStack{
-                Spacer()
-                
-                 if colorScheme == .light {
-                    Text("Multiplication").mainTitleLight()
-                 } else { Text("Multiplication").mainTitleDark()}
-                
-                Button(){
-                    
-                    withAnimation(.linear(duration: 0.8)){
-                        play.toggle()
+                VStack{
+                    Button(){
                         
-                        
+                        withAnimation(.linear(duration: 0.8)){
+                            play.toggle()
+                            
+                            
+                        }
+                    } label: {
+                        Text("Play")
                     }
-                } label: {
-                    Text("Play")
-                }
-                .addStylePlayBtn()
-                .opacity(play ? 0 : 1)
-                Spacer()
-                
+                    .addStylePlayBtn()
+                    .opacity(play ? 0 : 1)
+                    
                     .onAppear(perform: {
-                    positionLowerCloud = 900
-                    positionUpperCloud = 800
-                })
-                
+                        positionLowerCloud = 900
+                        positionUpperCloud = 800
+                    })
+                    
+                }
+                .position(x: 200, y: 350)
                 HStack{
                     
                     Circle()
-                        .frame(maxWidth: 350)
-                        .foregroundStyle(.green).brightness(0.1)
+                        .frame(minWidth: 250)
+                        .foregroundStyle(.green).brightness(0.06)
                         .zIndex(1)
+                        .position(x: 300, y: 400)
                         
                     
                     Circle()
-                        .frame(maxWidth: 265)
-                        .foregroundStyle(.green).brightness(0.1)
-                        .zIndex(1)
+                        .frame(minWidth:400)
+                        .foregroundStyle(.green).brightness(0.0)
+                        .zIndex(0)
+                        .position(x: 300, y: 350)
+                    
                         
                     Circle()
-                        .frame(maxWidth:180)
-                        .foregroundStyle(.green).brightness(0.0)
+                        .frame(minWidth:400)
+                        .foregroundStyle(.green).brightness(0.02)
+                        .position(x: 10 , y: 400)
 
                     
                     Circle()
-                        .frame(maxWidth:270)
-                        .foregroundStyle(.green).brightness(0.0)
+                        .frame(minWidth:350)
+                        .foregroundStyle(.green).brightness(0.04)
                         .zIndex(-1)
+                        .position(x: -200, y: 350)
                         
 
                 }
+    
                 .zIndex(-1)
                 Color.green.brightness(0.09)
-                    .frame(height: 120)
-                    .padding(.top, -50)
+                    .frame(height: 100)
                     .padding(.bottom, -50)
                 
                     
