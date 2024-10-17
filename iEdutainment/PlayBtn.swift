@@ -14,6 +14,7 @@ struct MainTitleLight: ViewModifier {
             .font(.system(size: 45, weight: .semibold, design: .rounded)).foregroundStyle(.blue.opacity(0.5)).fontWeight(.semibold).padding(.bottom)
                 .shadow(color: Color.white.opacity(0.6), radius: 4, x: 3, y: 3)
                 .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                .zIndex(3)
     }
 }
 
@@ -27,8 +28,8 @@ struct MainTitleDark: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 45, weight: .semibold, design: .rounded)).foregroundStyle(.blue.opacity(0.9)).fontWeight(.semibold).padding(.bottom)
-                .shadow(color: Color.black.opacity(0.6), radius: 4, x: 3, y: 3)
-                .shadow(color: Color.black.opacity(0.7), radius: 10, x: -5, y: -5)
+                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 3, y: 3)
+                .shadow(color: Color.black.opacity(0.3), radius: 10, x: -5, y: -5)
 
         
     }
@@ -49,16 +50,10 @@ struct PlayButtonStyle : ViewModifier {
         } else { Text("Multiplication").mainTitleDark()}
         
         content
-        
-        
-            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-            .buttonBorderShape(.roundedRectangle)
-            .controlSize(.large)
             .foregroundStyle(.white)
             .padding(.bottom, 25)
-            .padding(.top, 25)
-            .font(.system(size: 32, weight: .semibold, design: .rounded))
+            .padding(.top, 4)
+            .font(.system(size: 35, weight: .semibold, design: .rounded))
         
          
         HStack{

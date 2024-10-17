@@ -55,9 +55,7 @@ struct ContentView: View {
                     })
                     
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.primary)
-                
+                .zIndex(3)
                 .position(x: 200, y: 375)
                 
                 HStack{
