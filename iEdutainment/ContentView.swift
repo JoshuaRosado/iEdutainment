@@ -40,8 +40,6 @@ struct ContentView: View {
                         
                         withAnimation(.linear(duration: 0.8)){
                             play.toggle()
-                            
-                            
                         }
                     } label: {
                         Text("Play")
@@ -58,6 +56,8 @@ struct ContentView: View {
                 .zIndex(3)
                 .position(x: 200, y: 375)
                 
+                
+                // ======== BG Moutains scenic
                 Mountains()
                     
                     
