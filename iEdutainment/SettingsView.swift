@@ -36,8 +36,9 @@ struct SettingsView: View {
     var body: some View{
         NavigationStack{
                 //====================== PICKER FOR MULT TABLE
+            VStack{
                 HStack{
-
+ 
                     Image("parrot", bundle: .main)
                         .resizable()
                         .frame(width: 75, height: 75)
@@ -47,26 +48,28 @@ struct SettingsView: View {
                             .frame(width: 180, height: 50)
                             .cornerRadius(30)
                             .zIndex(1)
-
+                        
                         Section{
                             Text("Make your choice")
                                 .foregroundStyle(.secondary).bold()
                                 .zIndex(2)
                         }
-                        
                     }
-
                 }
+            }
+            
                 .padding(.top, -105)
                 .toolbar{
                     Button("Start")
                     {
+                        
                     }
                     .navigationTitle("Settings")
                     .navigationBarTitleDisplayMode(.inline)
                     
                     
                 }
+                
                 
                 Section{}
                 
@@ -79,7 +82,7 @@ struct SettingsView: View {
                         }
                         
                     } .pickerStyle(.wheel)
-                } .frame(height: 175)
+                } .frame(height: 200)
                 
                 
                 //================= PICKER FOR DIFFICULTY
@@ -109,13 +112,11 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
                     
                 }
-                
-            
-                
+          
                 
             }
-            .background(.thinMaterial)
-            .scrollContentBackground(.hidden)
+        .background(.blue)
+        
             
         }
     
