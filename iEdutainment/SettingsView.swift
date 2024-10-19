@@ -34,11 +34,13 @@ struct SettingsView: View {
     
     
     var body: some View{
-            List{
+        NavigationStack{
                 //====================== PICKER FOR MULT TABLE
                 HStack{
 
                     Image("parrot", bundle: .main)
+                        .resizable()
+                        .frame(width: 75, height: 75)
                     ZStack{
                         Rectangle()
                             .fill(.thinMaterial.opacity(0.8))
@@ -53,13 +55,22 @@ struct SettingsView: View {
                         }
                         
                     }
-                    
-                    
 
                 }
+                .padding(.top, -105)
+                .toolbar{
+                    Button("Start")
+                    {
+                    }
+                    .navigationTitle("Settings")
+                    .navigationBarTitleDisplayMode(.inline)
+                    
+                    
+                }
+                
                 Section{}
                 
-                VStack{
+            VStack(spacing: 20){
                     Text("multiplication table").titleStyle()
                     
                     Picker("", selection: $multiplicationTableSelected) {
@@ -68,7 +79,8 @@ struct SettingsView: View {
                         }
                         
                     } .pickerStyle(.wheel)
-                } .frame(height: 155)
+                } .frame(height: 175)
+                
                 
                 //================= PICKER FOR DIFFICULTY
                 
@@ -93,17 +105,26 @@ struct SettingsView: View {
                             Text(String($0))
                         }
                     }
+                    .padding()
                     .pickerStyle(.segmented)
                     
                 }
+                
+            
+                
                 
             }
             .background(.thinMaterial)
             .scrollContentBackground(.hidden)
             
         }
+    
+    
             
         
+}
+#Preview {
+    ContentView()
 }
 
 
