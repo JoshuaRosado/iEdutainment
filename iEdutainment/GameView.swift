@@ -13,18 +13,26 @@ struct GameView: View {
     @State private var positionUpperCloud: Double = -175
     var body: some View {
         ZStack{
-            RadialGradient(colors: (colorScheme == .light ? [.red,.orange, .yellow, .blue.opacity(0.5)] : [.white,.white, .white.opacity(0.8), .blue.opacity(0.5)]) , center: .topLeading, startRadius: 50, endRadius: 300)
-                .ignoresSafeArea()
             
-            Clouds(lowerCloud: positionLowerCloud, upperCloud: positionUpperCloud)
-            VStack{
-                Mountains()
+            
+            ZStack{
+                RadialGradient(colors: (colorScheme == .light ? [.red,.orange, .yellow, .blue.opacity(0.5)] : [.white,.white, .white.opacity(0.8), .blue.opacity(0.5)]) , center: .topLeading, startRadius: 50, endRadius: 300)
+                    .ignoresSafeArea()
+                
+                Clouds(lowerCloud: positionLowerCloud, upperCloud: positionUpperCloud)
+                VStack{
+                    Mountains()
+                }
+                .position(x: 200, y: 850)
+                .onAppear(perform: {
+                    positionLowerCloud = 900
+                    positionUpperCloud = 800
+                })
             }
-            .position(x: 200, y: 850)
-            .onAppear(perform: {
-                positionLowerCloud = 900
-                positionUpperCloud = 800
-            })
+            Rectangle()
+                .fill(.ultraThinMaterial).opacity(0.8)
+                .ignoresSafeArea()
+                
         }
     }
 }
