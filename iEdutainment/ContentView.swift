@@ -13,17 +13,16 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var difficultyValue = 0
     @State private var difficultyRange = ["Easy", "Medium", "Hard"]
-    @State private var easyQuestion = [0,1,10]
-    @State private var mediumQuestion = [2,5,9]
-    @State private var hardQuestion = [3,6,7,8]
+
     @State private var amountOfQuestions = 0
     @State private var randomQuestion = Int.random(in: 0...12)
     @State private var appWasOpened = false
     @State private var play = false
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
+    @State private var multiplicationTable = Int.random(in: 0..<13)
+    @State private var numberMultiplyBy = Int.random(in: 0..<13)
     
-    @State private var didGameEnd = false
 
     var body: some View {
         

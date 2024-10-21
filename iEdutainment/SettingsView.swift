@@ -75,7 +75,6 @@ struct SettingsView: View {
                 
             VStack(spacing: 20){
                     Text("multiplication table").titleStyle()
-                    
                     Picker("", selection: $multiplicationTableSelected) {
                         ForEach(Array(stride(from: 0, to: 13, by: 1)), id: \.self) { index in
                             Text("\(index)")
@@ -94,10 +93,12 @@ struct SettingsView: View {
                     Picker("Difficulty", selection: $selectedDifficulty){
                         ForEach(difficultyRange, id: \.self){
                             Text($0)
+                            
                         }
                     }
                     .pickerStyle(.segmented)
                     .padding(15)
+                    
                     
                 }
                 Section(){
@@ -106,7 +107,9 @@ struct SettingsView: View {
                     Picker("", selection: $questionAmount){
                         ForEach(amountOfQuestions, id: \.self){
                             Text(String($0))
+                                
                         }
+                        
                     }
                     .padding()
                     .pickerStyle(.segmented)
