@@ -29,9 +29,12 @@ struct GameView: View {
                     positionUpperCloud = 800
                 })
             }
-            Rectangle()
-                .fill(.ultraThinMaterial).opacity(0.8)
-                .ignoresSafeArea()
+            RoundedRectangle(
+                cornerRadius: 20, style: .circular
+            )
+            .fill(.thickMaterial).opacity(0.8)
+                .padding(20)
+                
                 
         }
     }
