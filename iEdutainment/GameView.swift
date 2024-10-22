@@ -11,6 +11,7 @@ struct GameView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
+    @State private var usersAnswer = ""
     var body: some View {
         ZStack{
             
@@ -29,11 +30,30 @@ struct GameView: View {
                     positionUpperCloud = 800
                 })
             }
-            RoundedRectangle(
-                cornerRadius: 20, style: .circular
-            )
-            .fill(.thickMaterial).opacity(0.8)
-                .padding(20)
+            ZStack{
+                RoundedRectangle(
+                    cornerRadius: 20, style: .circular
+                )
+                .fill(.thinMaterial)
+                
+                
+                VStack{
+                    Text("x1 ") .titleStyle()
+                        .padding()
+                    Spacer()
+                    Text("1 x 4")
+                    
+                    Form{
+                        TextField("", text: $usersAnswer)
+                    }
+                    .scrollContentBackground(.hidden)
+                    .frame(width: 100, height: 100)
+                    Spacer()
+                    
+                }
+            }
+            .padding()
+            
                 
                 
         }
