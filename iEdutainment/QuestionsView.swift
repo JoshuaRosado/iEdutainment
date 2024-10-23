@@ -32,6 +32,91 @@ struct QuestionsView: View {
                 .titleStyle()
             
         }
+        RadialGradient(colors: [.mint, .gray], center: .bottom, startRadius: 200, endRadius: 250)
+        VStack{
+            Text("Questions")
+                .titleStyle()
+            Text("Questions2")
+                .titleStyle()
+            Text("Questions3")
+                .titleStyle()
+            Text("Questions4")
+                .titleStyle()
+            Text("Questions5")
+                .titleStyle()
+            
+        }
+        RadialGradient(colors: [.mint, .gray], center: .bottom, startRadius: 200, endRadius: 250)
+        VStack{
+            Text("Questions")
+                .titleStyle()
+            Text("Questions2")
+                .titleStyle()
+            Text("Questions3")
+                .titleStyle()
+            Text("Questions4")
+                .titleStyle()
+            Text("Questions5")
+                .titleStyle()
+            
+        }
+        RadialGradient(colors: [.mint, .gray], center: .bottom, startRadius: 200, endRadius: 250)
+        VStack{
+            Text("Questions")
+                .titleStyle()
+            Text("Questions2")
+                .titleStyle()
+            Text("Questions3")
+                .titleStyle()
+            Text("Questions4")
+                .titleStyle()
+            Text("Questions5")
+                .titleStyle()
+            
+        }
+        RadialGradient(colors: [.mint, .gray], center: .bottom, startRadius: 200, endRadius: 250)
+        VStack{
+            Text("Questions")
+                .titleStyle()
+            Text("Questions2")
+                .titleStyle()
+            Text("Questions3")
+                .titleStyle()
+            Text("Questions4")
+                .titleStyle()
+            Text("Questions5")
+                .titleStyle()
+            
+        }
+        RadialGradient(colors: [.mint, .gray], center: .bottom, startRadius: 200, endRadius: 250)
+        VStack{
+            Text("Questions")
+                .titleStyle()
+            Text("Questions2")
+                .titleStyle()
+            Text("Questions3")
+                .titleStyle()
+            Text("Questions4")
+                .titleStyle()
+            Text("Questions5")
+                .titleStyle()
+            
+        }
+        RadialGradient(colors: [.mint, .gray], center: .bottom, startRadius: 200, endRadius: 250)
+        VStack{
+            Text("Questions")
+                .titleStyle()
+            Text("Questions2")
+                .titleStyle()
+            Text("Questions3")
+                .titleStyle()
+            Text("Questions4")
+                .titleStyle()
+            Text("Questions5")
+                .titleStyle()
+            
+        }
+        
         
         
 
