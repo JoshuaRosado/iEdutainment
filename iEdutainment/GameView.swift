@@ -12,54 +12,32 @@ struct GameView: View {
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
     @State private var usersAnswer = ""
+    @State private var multNumbers = Int.random(in: 0...5)
+    
     var body: some View {
         ZStack{
             
+            Color.green.brightness(0.4)
+                .ignoresSafeArea()
             
-            ZStack{
-                RadialGradient(colors: (colorScheme == .light ? [.red,.orange, .yellow, .blue.opacity(0.5)] : [.white,.white, .white.opacity(0.8), .blue.opacity(0.5)]) , center: .topLeading, startRadius: 50, endRadius: 300)
-                    .ignoresSafeArea()
-                
-                Clouds(lowerCloud: positionLowerCloud, upperCloud: positionUpperCloud)
-                VStack{
-                    Mountains()
+            HStack{
+                Image("hippo", bundle: .main)
+                    .resizable()
+                    .frame(width: 110, height: 100)
+                ZStack{
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 200, height: 75)
+                        .foregroundStyle(.white)
+                    Text(" 5 x 2").font(.system(size: 32)).bold()
                 }
-                .position(x: 200, y: 850)
-                .onAppear(perform: {
-                    positionLowerCloud = 900
-                    positionUpperCloud = 800
-                })
-            }
-            ZStack{
-                RoundedRectangle(
-                    cornerRadius: 20, style: .circular
-                )
-                .fill(.thinMaterial)
                 
-                
-                VStack{
-                    Text("x1 ") .titleStyle()
-                        .padding()
-                    Spacer()
-                    Text("1 x 4")
-                    
-                    Form{
-                        TextField("", text: $usersAnswer)
-                    }
-                    .scrollContentBackground(.hidden)
-                    .frame(width: 100, height: 100)
-                    Spacer()
-                    
-                }
             }
-            .padding()
             
-                
-                
+            
+            
         }
     }
 }
-
 #Preview {
     GameView()
 }
