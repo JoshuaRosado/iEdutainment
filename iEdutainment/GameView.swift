@@ -63,6 +63,7 @@ struct GameView: View {
                         .keyboardType(.numberPad)
                         
                 }
+                Text("Score: 9").titleStyle()
                 
             }
             
