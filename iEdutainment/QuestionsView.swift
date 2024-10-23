@@ -10,11 +10,17 @@
 import SwiftUI
 
 struct QuestionsView: View {
-    private var difficultySelected: String
-    private var questionsAmountSelected: Int
-    private var multiplicationTableSelected: Int
+    @State private var difficultySelected: String
+    @State private var questionsAmountSelected: Int
+    @State private var multiplicationTableSelected: Int
+    @State private var multiplicationTableSelectedForQuestion = 1
+    
+
+    
     var body: some View {
         Text("Questions")
+        
+
         
     }
 }

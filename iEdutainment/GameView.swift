@@ -26,9 +26,9 @@ struct GameView: View {
                 Spacer()
                 HStack{
                     
-                    Image("hippo", bundle: .main)
+                    Image("dog", bundle: .main)
                         .resizable()
-                        .frame(width: 110, height: 100)
+                        .frame(width: 95, height: 110)
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
                             .frame(width: 200, height: 75)
@@ -43,8 +43,8 @@ struct GameView: View {
                 ZStack{
                     
                     
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(width: 200, height: 75)
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 200, height: 50)
                         .foregroundStyle(.secondary)
                     
                     Text(" 5 x \(multNumbersEasy)").font(.system(size: 32)).bold().foregroundStyle(.white)
@@ -53,13 +53,13 @@ struct GameView: View {
                 
                 ZStack{
                     RoundedRectangle(cornerRadius: 20).foregroundStyle(.white)
-                        .frame(height: 500)
+                        .frame(height: 450)
                         .padding()
-                    TextField("Hello", text: $usersAnswer)
+                    TextField("Enter results", text: $usersAnswer)
                         .titleStyle()
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        .frame(width: 150, height: 100)
+                        .frame(width: 200, height: 100)
                         .keyboardType(.numberPad)
                         
                 }
