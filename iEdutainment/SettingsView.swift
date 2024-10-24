@@ -26,10 +26,12 @@ extension View {
 struct SettingsView: View {
     @State private var value = 0
     @State private var multiplicationTableSelected = 0
+    @State private var difficultySelected = "Easy"
     let amountOfQuestions = [5,10,20]
-    @State private var questionAmount = 5
+    @State private var questionAmountSelected = 5
     let difficultyRange = ["Easy", "Medium", "Hard"]
-    @State private var selectedDifficulty = "Easy"
+    
+    @State private var startGame = false
     
     
     
@@ -56,12 +58,13 @@ struct SettingsView: View {
                         }
                     }
                 }
+                .padding(.top, -100)
             }
             
-                .padding(.top, -105)
                 .toolbar{
                     Button("Start")
                     {
+                        startGameMode()
                         
                     }
                     .navigationTitle("Settings")
@@ -90,7 +93,7 @@ struct SettingsView: View {
                     Text("difficulty")
                         .titleStyle()
                     
-                    Picker("Difficulty", selection: $selectedDifficulty){
+                    Picker("Difficulty", selection: $difficultySelected){
                         ForEach(difficultyRange, id: \.self){
                             Text($0)
                             
@@ -104,9 +107,10 @@ struct SettingsView: View {
                 Section(){
                     Text("questions")
                         .titleStyle()
-                    Picker("", selection: $questionAmount){
+                    Picker("", selection: $questionAmountSelected){
                         ForEach(amountOfQuestions, id: \.self){
                             Text(String($0))
+                            
                                 
                         }
                         
@@ -122,6 +126,14 @@ struct SettingsView: View {
         
             
         }
+    func startGameMode(){
+        startGame = true
+        
+        print(multiplicationTableSelected)
+        print(difficultySelected)
+        print(questionAmountSelected)
+        
+    }
     
     
             

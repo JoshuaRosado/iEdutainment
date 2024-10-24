@@ -16,7 +16,7 @@ struct ContentView: View {
 
     @State private var amountOfQuestions = 0
     @State private var randomQuestion = Int.random(in: 0...12)
-    @State private var appWasOpened = false
+    @State private var gameStarted = false
     @State private var play = false
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
@@ -68,13 +68,12 @@ struct ContentView: View {
             }
             
             if play{
-                    ZStack{
-                        Rectangle()
-                            .background(.ultraThinMaterial)
-                            .ignoresSafeArea()
-                        SettingsView()
-                    }
-                    .animation(.linear, value: play)
+               SettingsView()
+            }
+            if gameStarted{
+                GameView()
+              
+                
             }
             
         }
