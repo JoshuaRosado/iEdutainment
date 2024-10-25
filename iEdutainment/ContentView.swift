@@ -70,12 +70,7 @@ struct ContentView: View {
             if play{
                SettingsView()
             }
-            if gameStarted{
-                GameView()
-              
-                
-            }
-            
+                        
         }
     }
 }

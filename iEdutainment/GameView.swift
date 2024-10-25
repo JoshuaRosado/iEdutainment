@@ -7,7 +7,27 @@
 
 import SwiftUI
 
+
+
+struct QuestionModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundStyle(.white).bold().font(.system(size: 32))
+    }
+}
+
+extension View{
+    func mainQuestionStyle() -> some View {
+        modifier(QuestionModifier())
+    }
+}
+
 struct GameView: View {
+    @State var multiplicationTable: Int
+    @State var difficultyLevel: String
+    @State var amountOfQuestions: Int
+    
+    
     @Environment(\.colorScheme) var colorScheme
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
@@ -47,7 +67,24 @@ struct GameView: View {
                         .frame(width: 200, height: 50)
                         .foregroundStyle(.secondary)
                     
-                    Text(" 5 x \(multNumbersEasy)").font(.system(size: 32)).bold().foregroundStyle(.white)
+                    
+                    
+                    switch difficultyLevel {
+                    case "eEasy":
+                        Text(" \(multiplicationTable) x \(multNumbersEasy)").mainQuestionStyle()
+                        
+                    case "Medium":
+                        Text(" \(multiplicationTable) x \(multNumbersMedium)").mainQuestionStyle()
+                        
+                    case "Hard":
+                        Text(" \(multiplicationTable) x \(multNumbersHard)").mainQuestionStyle()
+                        
+                    default:
+                        Text("There was an error")
+                    }
+                    
+                    
+                    
                 }
                 Spacer()
                 
@@ -72,6 +109,6 @@ struct GameView: View {
         }
     }
 }
-#Preview {
-    GameView()
-}
+//#Preview {
+//    GameView(multiplicationTable: 2, difficultyLevel: "easy", amountOfQuestions: 20)
+//}

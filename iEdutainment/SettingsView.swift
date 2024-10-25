@@ -24,11 +24,13 @@ extension View {
 
 
 struct SettingsView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var value = 0
     @State private var multiplicationTableSelected = 0
+    @State private var questionAmountSelected = 5
     @State private var difficultySelected = "Easy"
     let amountOfQuestions = [5,10,20]
-    @State private var questionAmountSelected = 5
+    
     let difficultyRange = ["Easy", "Medium", "Hard"]
     
     @State private var startGame = false
@@ -122,9 +124,11 @@ struct SettingsView: View {
           
                 
             }
-        .background(.blue)
+        .background(.blue) 
         
-            
+        if startGame{
+            GameView(multiplicationTable: multiplicationTableSelected, difficultyLevel: difficultySelected, amountOfQuestions: questionAmountSelected)
+        }
         }
     func startGameMode(){
         startGame = true
@@ -132,6 +136,7 @@ struct SettingsView: View {
         print(multiplicationTableSelected)
         print(difficultySelected)
         print(questionAmountSelected)
+        
         
     }
     
