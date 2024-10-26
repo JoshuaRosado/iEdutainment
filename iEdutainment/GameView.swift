@@ -36,6 +36,8 @@ struct GameView: View {
     @State private var multNumbersMedium = Int.random(in: 5...10)
     @State private var multNumbersHard = Int.random(in: 10...20)
     
+    @State private var animals = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant", "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda", "parrot", "penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
+    
     var body: some View {
         ZStack{
             
@@ -46,9 +48,12 @@ struct GameView: View {
                 Spacer()
                 HStack{
                     
-                    Image("dog", bundle: .main)
+                    ForEach(0..<1){ number in
+                    
+                        Image(ImageResource(name: animals[number], bundle: .main))
                         .resizable()
-                        .frame(width: 95, height: 110)
+                        .frame(width: 115, height: 115)
+                }
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
                             .frame(width: 200, height: 75)
@@ -70,7 +75,7 @@ struct GameView: View {
                     
                     
                     switch difficultyLevel {
-                    case "eEasy":
+                    case "Easy":
                         Text(" \(multiplicationTable) x \(multNumbersEasy)").mainQuestionStyle()
                         
                     case "Medium":
@@ -109,6 +114,6 @@ struct GameView: View {
         }
     }
 }
-//#Preview {
-//    GameView(multiplicationTable: 2, difficultyLevel: "easy", amountOfQuestions: 20)
-//}
+#Preview {
+    ContentView()
+}
