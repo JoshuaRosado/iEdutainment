@@ -12,7 +12,7 @@ import SwiftUI
 struct QuestionModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(.white).bold().font(.system(size: 32))
+            .foregroundStyle(.white).bold().font(.system(size: 50)).shadow(color: .black.opacity(0.5), radius: 50).fontDesign(.rounded)
     }
 }
 
@@ -38,6 +38,9 @@ struct GameView: View {
     
     @State private var animals = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant", "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda", "parrot", "penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
     
+    @State private var motivationQuotes = [
+        "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
+    
     var body: some View {
         ZStack{
             
@@ -45,32 +48,42 @@ struct GameView: View {
                 .ignoresSafeArea()
             
             VStack{
-                Spacer()
-                HStack{
+                VStack{
                     
                     ForEach(0..<1){ number in
                     
                         Image(ImageResource(name: animals[number], bundle: .main))
                         .resizable()
-                        .frame(width: 115, height: 115)
+                        .frame(width: 100, height: 100).padding()
                 }
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
-                            .frame(width: 200, height: 75)
+                            .frame(maxWidth: 350, maxHeight: 50 )
+        
+            
                             .foregroundStyle(.white)
-                        Text("What is").font(.system(size: 18))
+                        ForEach(0..<1){number in
+                            Text(motivationQuotes[number]).font(.system(size: 18)).foregroundStyle(.secondary
+                            )
+                        }
+                        
                     }
-                    
-                    
+   
                 }
-                Spacer()
+                .padding(.top, 25)
                 Spacer()
                 ZStack{
                     
-                    
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 200, height: 50)
-                        .foregroundStyle(.secondary)
+                    Circle()
+                        .stroke(lineWidth: 10)
+                        .frame( height: 300 )
+                        .foregroundStyle(.secondary.opacity(0.1))
+                        
+                    Circle()
+                        .stroke(lineWidth: 25)
+                        .frame( height: 200 )
+                        
+                        .foregroundStyle(.secondary.opacity(0.1))
                     
                     
                     
@@ -94,9 +107,7 @@ struct GameView: View {
                 Spacer()
                 
                 ZStack{
-                    RoundedRectangle(cornerRadius: 20).foregroundStyle(.white)
-                        .frame(height: 450)
-                        .padding()
+                
                     TextField("Enter results", text: $usersAnswer)
                         .titleStyle()
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -105,7 +116,7 @@ struct GameView: View {
                         .keyboardType(.numberPad)
                         
                 }
-                Text("Score: 9").titleStyle()
+                Text("Score: 9").titleStyle().bold().opacity(0.6)
                 
             }
             
@@ -115,5 +126,5 @@ struct GameView: View {
     }
 }
 #Preview {
-    ContentView()
+    GameView(multiplicationTable: 1, difficultyLevel: "Easy", amountOfQuestions: 5)
 }
