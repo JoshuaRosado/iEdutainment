@@ -22,6 +22,10 @@ extension View{
     }
 }
 
+extension Color {
+    static let offWhite = Color(red: 225 / 255, green: 225 / 255, blue: 235 / 255)
+}
+
 struct GameView: View {
     @State var multiplicationTable: Int
     @State var difficultyLevel: String
@@ -71,7 +75,7 @@ struct GameView: View {
    
                 }
                 .padding(.top, 25)
-                Spacer()
+                
                 ZStack{
                     
                     Circle()
@@ -104,18 +108,36 @@ struct GameView: View {
                     
                     
                 }
+                .padding(.top,25)
+                
                 Spacer()
-                
                 ZStack{
-                
-                    TextField("Enter results", text: $usersAnswer)
-                        .titleStyle()
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    HStack(spacing: 40){
                         
-                        .frame(width: 200, height: 100)
-                        .keyboardType(.numberPad)
+                        TextField("Result", text: $usersAnswer)
+                            .background(Color.white)
+                            .multilineTextAlignment(.center)
+                            .titleStyle()
+                            .frame(width: 100)
+                            .keyboardType(.numberPad)
+                        
+                        Button("Enter"){
+                            
+                        }
+                        .buttonStyle(.plain)
+                        .buttonBorderShape(.capsule)
+                        .frame(width: 100, height: 35)
+                        .background(.red).brightness(0.4)
+                        .foregroundStyle(.white)
+                        .font(.title)
+                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                        
+                    }
                         
                 }
+                
+                Spacer()
                 Text("Score: 9").titleStyle().bold().opacity(0.6)
                 
             }
