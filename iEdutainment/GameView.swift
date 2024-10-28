@@ -81,7 +81,7 @@ struct GameView: View {
                     Circle()
                         .stroke(lineWidth: 10)
                         .frame( height: 300 )
-                        .foregroundStyle(.secondary.opacity(0.1))
+                        .foregroundStyle(.secondary.opacity(0.2))
                         
                     Circle()
                         .stroke(lineWidth: 25)
@@ -115,19 +115,21 @@ struct GameView: View {
                     HStack(spacing: 40){
                         
                         TextField("Result", text: $usersAnswer)
+                            .textFieldStyle(.roundedBorder)
                             .background(Color.white)
                             .multilineTextAlignment(.center)
                             .titleStyle()
                             .frame(width: 100)
                             .keyboardType(.numberPad)
+                            
                         
                         Button("Enter"){
                             
                         }
-                        .buttonStyle(.plain)
-                        .buttonBorderShape(.capsule)
+                        .buttonStyle(.borderedProminent).tint(.green).brightness(0.4)
+                        
                         .frame(width: 100, height: 35)
-                        .background(.red).brightness(0.4)
+
                         .foregroundStyle(.white)
                         .font(.title)
                         .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
