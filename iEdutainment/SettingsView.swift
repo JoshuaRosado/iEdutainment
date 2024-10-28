@@ -131,7 +131,11 @@ struct SettingsView: View {
         }
         }
     func startGameMode(){
-        startGame = true
+        withAnimation(.linear(duration: 0.8)){
+            
+            
+            startGame = true
+        }
         
         print(multiplicationTableSelected)
         print(difficultySelected)
