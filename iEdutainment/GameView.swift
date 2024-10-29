@@ -31,7 +31,8 @@ struct GameView: View {
     @State var difficultyLevel: String
     @State var amountOfQuestions: Int
     
-    
+    @State private var isAnswerCorrect = false
+    @State private var isAnswerIncorrect = false
     @Environment(\.colorScheme) var colorScheme
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
@@ -45,6 +46,8 @@ struct GameView: View {
     
     @State private var motivationQuotes = [
         "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
+    
+
     
     var body: some View {
         ZStack{
@@ -82,13 +85,17 @@ struct GameView: View {
                     Circle()
                         .stroke(lineWidth: 10)
                         .frame( height: 250 )
-                        .foregroundStyle(.secondary.opacity(0.2))
+                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.2): isAnswerIncorrect ? .red.opacity(0.2) : .secondary.opacity(0.2))
+                        .animation(.smooth(duration: 1.5, extraBounce:2 ), value: isAnswerCorrect )
+                        .animation(.smooth(duration: 1.5, extraBounce: 2) ,value: isAnswerIncorrect)
+                    
                         
                     Circle()
                         .stroke(lineWidth: 15)
                         .frame( height: 175 )
-                        
-                        .foregroundStyle(.secondary.opacity(0.1))
+                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.2): isAnswerIncorrect ? .red.opacity(0.2) : .secondary.opacity(0.2))
+                        .animation(.smooth(duration: 1.5, extraBounce: 2).delay(0.4) ,value: isAnswerCorrect)
+                        .animation(.smooth(duration: 1.5, extraBounce: 2).delay(0.4) ,value: isAnswerIncorrect)
                     
                     
                     
@@ -125,8 +132,9 @@ struct GameView: View {
                             
                         
                         Button("Enter"){
+                            withAnimation{
                             validatingAnswer(answer: usersAnswer)
-                            
+                            }
                         }
                         .buttonStyle(.borderedProminent).tint(.green).brightness(0.4)
                         
@@ -150,7 +158,7 @@ struct GameView: View {
             
         }
         
-        
+         
     }
     func validatingAnswer( answer : Int){
         if difficultyLevel == "Easy"{
@@ -158,6 +166,10 @@ struct GameView: View {
         }
         if usersAnswer == (multiplicationTable * multNumbersEasy){
             score += 1
+            isAnswerCorrect = true
+            
+        } else {
+            isAnswerIncorrect = true
         }
     }
 }
