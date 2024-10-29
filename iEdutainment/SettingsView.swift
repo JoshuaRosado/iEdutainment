@@ -30,9 +30,13 @@ struct SettingsView: View {
     @State private var questionAmountSelected = 5
     @State private var difficultySelected = "Easy"
     let amountOfQuestions = [5,10,20]
-    
     let difficultyRange = ["Easy", "Medium", "Hard"]
     
+    @State private var rounds = 0
+    
+    
+    @State private var answerSubmited = false
+    @State private var gameOver = false
     @State private var startGame = false
     
     
@@ -132,17 +136,13 @@ struct SettingsView: View {
         }
     func startGameMode(){
         withAnimation(.linear(duration: 0.8)){
-            
-            
             startGame = true
         }
-        
-        print(multiplicationTableSelected)
-        print(difficultySelected)
-        print(questionAmountSelected)
+    
         
         
     }
+    
     
     
             

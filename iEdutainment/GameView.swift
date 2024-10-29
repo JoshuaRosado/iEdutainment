@@ -35,10 +35,11 @@ struct GameView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
-    @State private var usersAnswer = ""
-    @State private var multNumbersEasy = Int.random(in: 0...5)
-    @State private var multNumbersMedium = Int.random(in: 5...10)
-    @State private var multNumbersHard = Int.random(in: 10...20)
+    @State private var usersAnswer = 0
+    @State private var multNumbersEasy = Int.random(in: 0...10)
+    @State private var multNumbersMedium = Int.random(in: 10...30)
+    @State private var multNumbersHard = Int.random(in: 30...100)
+    @State private var score = 0
     
     @State private var animals = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant", "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda", "parrot", "penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
     
@@ -80,12 +81,12 @@ struct GameView: View {
                     
                     Circle()
                         .stroke(lineWidth: 10)
-                        .frame( height: 300 )
+                        .frame( height: 250 )
                         .foregroundStyle(.secondary.opacity(0.2))
                         
                     Circle()
-                        .stroke(lineWidth: 25)
-                        .frame( height: 200 )
+                        .stroke(lineWidth: 15)
+                        .frame( height: 175 )
                         
                         .foregroundStyle(.secondary.opacity(0.1))
                     
@@ -114,7 +115,7 @@ struct GameView: View {
                 ZStack{
                     HStack(spacing: 40){
                         
-                        TextField("Result", text: $usersAnswer)
+                        TextField("Result", value: $usersAnswer, format: .number)
                             .textFieldStyle(.roundedBorder)
                             .background(Color.white)
                             .multilineTextAlignment(.center)
@@ -124,6 +125,7 @@ struct GameView: View {
                             
                         
                         Button("Enter"){
+                            validatingAnswer(answer: usersAnswer)
                             
                         }
                         .buttonStyle(.borderedProminent).tint(.green).brightness(0.4)
@@ -140,12 +142,22 @@ struct GameView: View {
                 }
                 
                 Spacer()
-                Text("Score: 9").titleStyle().bold().opacity(0.6)
+                Text("Score: \(score)").titleStyle().bold().opacity(0.6)
                 
             }
             
             
             
+        }
+        
+        
+    }
+    func validatingAnswer( answer : Int){
+        if difficultyLevel == "Easy"{
+            
+        }
+        if usersAnswer == (multiplicationTable * multNumbersEasy){
+            score += 1
         }
     }
 }
