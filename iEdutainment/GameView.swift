@@ -62,16 +62,16 @@ struct GameView: View {
                 VStack{
                     
                     ForEach(0..<1){ number in
-                    
+                        
                         Image(ImageResource(name: animals[number], bundle: .main))
-                        .resizable()
-                        .frame(width: 100, height: 100).padding()
-                }
+                            .resizable()
+                            .frame(width: 100, height: 100).padding()
+                    }
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
                             .frame(maxWidth: 350, maxHeight: 50 )
-        
-            
+                        
+                        
                             .foregroundStyle(.white)
                         ForEach(0..<1){number in
                             Text(motivationQuotes[number]).font(.system(size: 18)).foregroundStyle(.secondary
@@ -79,7 +79,7 @@ struct GameView: View {
                         }
                         
                     }
-   
+                    
                 }
                 .padding(.top, 25)
                 
@@ -92,7 +92,7 @@ struct GameView: View {
                         .animation(.linear(duration: 0.3).delay(0.1), value: isAnswerCorrect )
                         .animation(.linear(duration: 0.3).delay(0.1),value: isAnswerIncorrect)
                     
-                        
+                    
                     Circle()
                         .stroke(lineWidth: 15)
                         .frame( height: 175 )
@@ -134,27 +134,27 @@ struct GameView: View {
                             .frame(width: 100)
                             .keyboardType(.numberPad)
                         
-                            
+                        
                         
                         Button("Enter"){
                             withAnimation{
                                 isAnswerEntered = true
                                 
-                             
-                            validatingAnswer(answer: usersAnswer)
+                                
+                                validatingAnswer(answer: usersAnswer)
                             }
                         }
                         .buttonStyle(.borderedProminent).tint(.green).brightness(0.4)
                         
                         .frame(width: 100, height: 35)
-
+                        
                         .foregroundStyle(.white)
                         .font(.title)
                         .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                         .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
                         
                     }
-                        
+                    
                 }
                 
                 Spacer()
@@ -166,17 +166,29 @@ struct GameView: View {
             .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                 Button("Next"){
                     usersAnswer = 0
-//                    nextRound()
+                    //                    nextRound()
                     gameLimit(amountOfQuestions: amountOfQuestions)
                     
                     
                 }
             }
+            .alert("Game Over", isPresented: $isGameOver){
+                
+                Button("Try again", action: resetGame)
+                
+            } message: {
+                Text("Final Score: \(score) / \(rounds)")
+ 
+            }
             
             
         }
+    }
+    func resetGame(){
+        nextRound()
+        rounds = 0
+        score = 0
         
-         
     }
     func gameLimit(amountOfQuestions: Int){
         if rounds < amountOfQuestions{
