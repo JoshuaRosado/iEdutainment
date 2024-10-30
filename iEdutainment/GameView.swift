@@ -54,9 +54,22 @@ struct GameView: View {
     
     var body: some View {
         ZStack{
+            switch difficultyLevel{
+            case "Easy":
+                Color.green.brightness(0.4)
+                    .ignoresSafeArea()
+                
+            case "Medium":
+                Color.yellow.brightness(0.4)
+                    .ignoresSafeArea()
+            case "Hard":
+                Color.red.brightness(0.4)
+                    .ignoresSafeArea()
+            default:
+                Color.secondary
+                    .ignoresSafeArea()
+            }
             
-            Color.green.brightness(0.4)
-                .ignoresSafeArea()
             
             VStack{
                 VStack{
