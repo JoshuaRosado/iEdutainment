@@ -30,7 +30,7 @@ struct GameView: View {
     @State var multiplicationTable: Int
     @State var difficultyLevel: String
     @State var amountOfQuestions: Int
-    
+    @State var rounds = 0
     @State private var isAnswerCorrect = false
     @State private var validatingTitle = ""
     @State private var isAnswerIncorrect = false
@@ -43,6 +43,7 @@ struct GameView: View {
     @State private var multNumbersMedium = Int.random(in: 10...30)
     @State private var multNumbersHard = Int.random(in: 30...100)
     @State private var score = 0
+    @State private var isGameOver = false
     
     @State private var animals = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant", "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda", "parrot", "penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
     
@@ -138,6 +139,7 @@ struct GameView: View {
                         Button("Enter"){
                             withAnimation{
                                 isAnswerEntered = true
+                                
                              
                             validatingAnswer(answer: usersAnswer)
                             }
@@ -158,11 +160,14 @@ struct GameView: View {
                 Spacer()
                 Text("Score: \(score)").titleStyle().bold().opacity(0.6)
                 
+                
             }
+            
             .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                 Button("Next"){
                     usersAnswer = 0
-                    nextRound()
+//                    nextRound()
+                    gameLimit(amountOfQuestions: amountOfQuestions)
                     
                     
                 }
@@ -173,7 +178,15 @@ struct GameView: View {
         
          
     }
+    func gameLimit(amountOfQuestions: Int){
+        if rounds < amountOfQuestions{
+            nextRound()
+        } else if rounds == amountOfQuestions{
+            isGameOver = true
+        }
+    }
     func nextRound(){
+        rounds += 1
         isAnswerCorrect = false
         isAnswerIncorrect = false
         if difficultyLevel == "Easy"{
