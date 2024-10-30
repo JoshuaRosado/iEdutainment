@@ -198,7 +198,6 @@ struct GameView: View {
         }
     }
     func nextRound(){
-        rounds += 1
         isAnswerCorrect = false
         isAnswerIncorrect = false
         if difficultyLevel == "Easy"{
@@ -210,6 +209,7 @@ struct GameView: View {
         }
     }
     func validatingAnswer( answer : Int){
+        rounds += 1
         if difficultyLevel == "Easy"{
             
             
