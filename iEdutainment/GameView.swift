@@ -32,7 +32,9 @@ struct GameView: View {
     @State var amountOfQuestions: Int
     
     @State private var isAnswerCorrect = false
+    @State private var validatingTitle = ""
     @State private var isAnswerIncorrect = false
+    @State private var isAnswerEntered = false
     @Environment(\.colorScheme) var colorScheme
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
@@ -122,7 +124,7 @@ struct GameView: View {
                 ZStack{
                     HStack(spacing: 40){
                         
-                        TextField("Result", value: $usersAnswer, format: .number)
+                        TextField("Result", value: $usersAnswer, formatter: NumberFormatter())
                             .textFieldStyle(.roundedBorder)
                             .background(Color.white)
                             .multilineTextAlignment(.center)
@@ -133,6 +135,7 @@ struct GameView: View {
                         
                         Button("Enter"){
                             withAnimation{
+                                isAnswerEntered = true
                             validatingAnswer(answer: usersAnswer)
                             }
                         }
@@ -153,7 +156,11 @@ struct GameView: View {
                 Text("Score: \(score)").titleStyle().bold().opacity(0.6)
                 
             }
-            
+            .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
+                Button("Next"){
+                    
+                }
+            }
             
             
         }
@@ -163,13 +170,37 @@ struct GameView: View {
     func validatingAnswer( answer : Int){
         if difficultyLevel == "Easy"{
             
-        }
-        if usersAnswer == (multiplicationTable * multNumbersEasy){
-            score += 1
-            isAnswerCorrect = true
             
-        } else {
-            isAnswerIncorrect = true
+            if usersAnswer == (multiplicationTable * multNumbersEasy){
+                score += 1
+                isAnswerCorrect = true
+                validatingTitle = "Correct"
+                
+                
+            } else {
+                isAnswerIncorrect = true
+                validatingTitle = "Incorrect"
+            }
+        } else if difficultyLevel == "Medium"{
+            if usersAnswer == (multiplicationTable * multNumbersMedium){
+                score += 1
+                isAnswerCorrect = true
+                validatingTitle = "Correct"
+                
+            } else {
+                isAnswerIncorrect = true
+                validatingTitle = "Incorrect"
+            }
+        } else if difficultyLevel == "Hard"{
+            if usersAnswer == (multiplicationTable * multNumbersHard){
+                score += 1
+                isAnswerCorrect = true
+                validatingTitle = "Correct"
+                
+            } else {
+                isAnswerIncorrect = true
+                validatingTitle = "Incorrect"
+            }
         }
     }
 }
