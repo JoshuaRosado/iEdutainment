@@ -87,17 +87,18 @@ struct GameView: View {
                     Circle()
                         .stroke(lineWidth: 10)
                         .frame( height: 250 )
-                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.2): isAnswerIncorrect ? .red.opacity(0.2) : .secondary.opacity(0.2))
-                        .animation(.smooth(duration: 1.5, extraBounce:2 ), value: isAnswerCorrect )
-                        .animation(.smooth(duration: 1.5, extraBounce: 2) ,value: isAnswerIncorrect)
+                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.4): isAnswerIncorrect ? .red.opacity(0.4) : .secondary.opacity(0.2))
+                        .animation(.linear(duration: 0.3).delay(0.1), value: isAnswerCorrect )
+                        .animation(.linear(duration: 0.3).delay(0.1),value: isAnswerIncorrect)
                     
                         
                     Circle()
                         .stroke(lineWidth: 15)
                         .frame( height: 175 )
-                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.2): isAnswerIncorrect ? .red.opacity(0.2) : .secondary.opacity(0.2))
-                        .animation(.smooth(duration: 1.5, extraBounce: 2).delay(0.4) ,value: isAnswerCorrect)
-                        .animation(.smooth(duration: 1.5, extraBounce: 2).delay(0.4) ,value: isAnswerIncorrect)
+                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.5): isAnswerIncorrect ? .red.opacity(0.5) :
+                                .secondary.opacity(0.2))
+                        .animation(.linear(duration: 0.5).delay(0.2),value: isAnswerCorrect)
+                        .animation(.linear(duration: 0.5).delay(0.2) ,value: isAnswerIncorrect)
                     
                     
                     
@@ -131,11 +132,13 @@ struct GameView: View {
                             .titleStyle()
                             .frame(width: 100)
                             .keyboardType(.numberPad)
+                        
                             
                         
                         Button("Enter"){
                             withAnimation{
                                 isAnswerEntered = true
+                             
                             validatingAnswer(answer: usersAnswer)
                             }
                         }
@@ -158,6 +161,9 @@ struct GameView: View {
             }
             .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                 Button("Next"){
+                    usersAnswer = 0
+                    nextRound()
+                    
                     
                 }
             }
@@ -166,6 +172,17 @@ struct GameView: View {
         }
         
          
+    }
+    func nextRound(){
+        isAnswerCorrect = false
+        isAnswerIncorrect = false
+        if difficultyLevel == "Easy"{
+            multNumbersEasy = Int.random(in: 0...10)
+        } else if difficultyLevel == "Medium"{
+            multNumbersMedium = Int.random(in: 10...30)
+        } else if difficultyLevel == "Hard"{
+            multNumbersHard = Int.random(in: 30...100)
+        }
     }
     func validatingAnswer( answer : Int){
         if difficultyLevel == "Easy"{
