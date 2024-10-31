@@ -16,6 +16,26 @@ struct QuestionModifier: ViewModifier {
     }
 }
 
+struct EnterBtn: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .brightness(0.4)
+            .frame(width: 100, height: 35)
+            
+            .foregroundStyle(.white)
+            .font(.title)
+            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+    }
+}
+
+extension View{
+    func enterBtn() -> some View {
+        modifier(EnterBtn())
+    }
+}
+
+
 extension View{
     func mainQuestionStyle() -> some View {
         modifier(QuestionModifier())
@@ -44,6 +64,9 @@ struct GameView: View {
     @State private var multNumbersHard = Int.random(in: 30...100)
     @State private var score = 0
     @State private var isGameOver = false
+    @State private var isDifficultyEasy = false
+    @State private var isDifficultyMedium = false
+    @State private var isDifficultyHard = false
     
     @State private var animals = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant", "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda", "parrot", "penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
     
@@ -60,7 +83,7 @@ struct GameView: View {
                     .ignoresSafeArea()
                 
             case "Medium":
-                Color.yellow.brightness(0.4)
+                Color.purple.brightness(0.4)
                     .ignoresSafeArea()
             case "Hard":
                 Color.red.brightness(0.4)
@@ -120,6 +143,7 @@ struct GameView: View {
                     case "Easy":
                         Text(" \(multiplicationTable) x \(multNumbersEasy)").mainQuestionStyle()
                         
+                        
                     case "Medium":
                         Text(" \(multiplicationTable) x \(multNumbersMedium)").mainQuestionStyle()
                         
@@ -157,14 +181,8 @@ struct GameView: View {
                                 validatingAnswer(answer: usersAnswer)
                             }
                         }
-                        .buttonStyle(.borderedProminent).tint(.green).brightness(0.4)
-                        
-                        .frame(width: 100, height: 35)
-                        
-                        .foregroundStyle(.white)
-                        .font(.title)
-                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                        .buttonStyle(.borderedProminent).tint( .green)
+                        .enterBtn()
                         
                     }
                     
@@ -224,8 +242,7 @@ struct GameView: View {
     func validatingAnswer( answer : Int){
         rounds += 1
         if difficultyLevel == "Easy"{
-            
-            
+
             if usersAnswer == (multiplicationTable * multNumbersEasy){
                 score += 1
                 isAnswerCorrect = true
@@ -237,6 +254,7 @@ struct GameView: View {
                 validatingTitle = "Incorrect"
             }
         } else if difficultyLevel == "Medium"{
+            
             if usersAnswer == (multiplicationTable * multNumbersMedium){
                 score += 1
                 isAnswerCorrect = true
@@ -247,6 +265,7 @@ struct GameView: View {
                 validatingTitle = "Incorrect"
             }
         } else if difficultyLevel == "Hard"{
+            
             if usersAnswer == (multiplicationTable * multNumbersHard){
                 score += 1
                 isAnswerCorrect = true
