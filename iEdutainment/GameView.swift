@@ -69,10 +69,10 @@ struct GameView: View {
     @State private var isDifficultyMedium = false
     @State private var isDifficultyHard = false
     
-    @State private var animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
-    @State private var animalsMediumDifficulty =
+    @State var animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
+    @State var animalsMediumDifficulty =
     [ "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda"].shuffled()
-    @State private var animalsHardDifficulty =
+    @State var animalsHardDifficulty =
     ["penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
     
     @State private var motivationQuotes = [
@@ -176,16 +176,15 @@ struct GameView: View {
                 }
                 .padding(.top,25)
                 
-                Spacer()
+//                Spacer()
                 ZStack{
-                    HStack(spacing: 40){
+                    VStack(spacing: 40){
                         
                         TextField("Result", value: $usersAnswer, formatter: NumberFormatter())
                             .textFieldStyle(.roundedBorder)
                             .background(Color.white)
                             .multilineTextAlignment(.center)
                             .titleStyle()
-                            .frame(width: 100)
                             .keyboardType(.numberPad)
                         
                         
@@ -205,20 +204,23 @@ struct GameView: View {
                 }
                 
                 Spacer()
-                Text("Score: \(score)").titleStyle().bold().opacity(0.6)
+                Text("Score: \(score)").titleStyle().bold().opacity(0.4)
                 
                 
             }
             
             .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                 Button("Next"){
-                    usersAnswer = 0
-                    //                    nextRound()
-                    gameLimit(amountOfQuestions: amountOfQuestions)
-                    
-                    
+                    withAnimation{
+                        usersAnswer = 0
+                        
+                        gameLimit(amountOfQuestions: amountOfQuestions)
+                    }
+
                 }
+                
             }
+            
             .alert("Game Over", isPresented: $isGameOver){
                 
                 Button("Try again", action: resetGame)
@@ -236,6 +238,7 @@ struct GameView: View {
         rounds = 0
         score = 0
         
+        
     }
     func gameLimit(amountOfQuestions: Int){
         if rounds < amountOfQuestions{
@@ -249,10 +252,16 @@ struct GameView: View {
         isAnswerIncorrect = false
         if difficultyLevel == "Easy"{
             multNumbersEasy = Int.random(in: 0...10)
+            animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
+        
         } else if difficultyLevel == "Medium"{
             multNumbersMedium = Int.random(in: 10...30)
+            animalsMediumDifficulty =
+            [ "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda"].shuffled()
         } else if difficultyLevel == "Hard"{
             multNumbersHard = Int.random(in: 30...100)
+            animalsHardDifficulty =
+            ["penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
         }
     }
     func validatingAnswer( answer : Int){
