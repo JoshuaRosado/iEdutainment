@@ -19,13 +19,14 @@ struct QuestionModifier: ViewModifier {
 struct EnterBtn: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .tint( .secondary)
             .brightness(0.4)
-            .frame(width: 100, height: 35)
-            
+            .controlSize(.extraLarge)
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.capsule)
             .foregroundStyle(.white)
             .font(.title)
-            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+
     }
 }
 
@@ -68,7 +69,11 @@ struct GameView: View {
     @State private var isDifficultyMedium = false
     @State private var isDifficultyHard = false
     
-    @State private var animals = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant", "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda", "parrot", "penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
+    @State private var animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
+    @State private var animalsMediumDifficulty =
+    [ "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda"].shuffled()
+    @State private var animalsHardDifficulty =
+    ["penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
     
     @State private var motivationQuotes = [
         "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
@@ -98,10 +103,22 @@ struct GameView: View {
                 VStack{
                     
                     ForEach(0..<1){ number in
-                        
-                        Image(ImageResource(name: animals[number], bundle: .main))
-                            .resizable()
-                            .frame(width: 100, height: 100).padding()
+                        if difficultyLevel == "Easy"{
+                            Image(ImageResource(name: animalsEasyDifficulty[number], bundle: .main))
+                                .resizable()
+                                .frame(width: 100, height: 100).padding()
+                        }
+                        else if difficultyLevel == "Medium"{
+                            Image(ImageResource(name: animalsMediumDifficulty[number], bundle: .main))
+                                .resizable()
+                                .frame(width: 100, height: 100).padding()
+                        }
+                        else if difficultyLevel == "Hard"{
+                            Image(ImageResource(name: animalsHardDifficulty[number], bundle: .main))
+                                .resizable()
+                                .frame(width: 100, height: 100).padding()
+                            
+                        }
                     }
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
@@ -181,7 +198,6 @@ struct GameView: View {
                                 validatingAnswer(answer: usersAnswer)
                             }
                         }
-                        .buttonStyle(.borderedProminent).tint( .green)
                         .enterBtn()
                         
                     }
