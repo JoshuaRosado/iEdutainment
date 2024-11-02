@@ -25,8 +25,8 @@ extension View {
 
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
-    @State private var value = 0
-    @State private var multiplicationTableSelected = 0
+    @State private var value = 1
+    @State private var multiplicationTableSelected = 1
     @State private var questionAmountSelected = 5
     @State private var difficultySelected = "Easy"
     let amountOfQuestions = [5,8,10]
@@ -85,7 +85,7 @@ struct SettingsView: View {
             VStack(spacing: 20){
                     Text("multiplication table").titleStyle()
                     Picker("", selection: $multiplicationTableSelected) {
-                        ForEach(Array(stride(from: 0, to: 13, by: 1)), id: \.self) { index in
+                        ForEach(Array(stride(from: 1, to: 13, by: 1)), id: \.self) { index in
                             Text("\(index)")
                         }
                         
