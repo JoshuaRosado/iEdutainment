@@ -29,7 +29,7 @@ struct SettingsView: View {
     @State private var multiplicationTableSelected = 0
     @State private var questionAmountSelected = 5
     @State private var difficultySelected = "Easy"
-    let amountOfQuestions = [5,10,20]
+    let amountOfQuestions = [5,8,10]
     let difficultyRange = ["Easy", "Medium", "Hard"]
     
     @State private var rounds = 0

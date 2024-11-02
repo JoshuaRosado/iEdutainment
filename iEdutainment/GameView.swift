@@ -59,7 +59,9 @@ struct GameView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
-    @State private var usersAnswer = 0
+    @State private var usersAnswer = ""
+    @State private var easyNumList = []
+    
     @State private var multNumbersEasy = Int.random(in: 0...10)
     @State private var multNumbersMedium = Int.random(in: 10...30)
     @State private var multNumbersHard = Int.random(in: 30...100)
@@ -160,7 +162,7 @@ struct GameView: View {
                     case "Easy":
                         Text(" \(multiplicationTable) x \(multNumbersEasy)").mainQuestionStyle()
                         
-                        
+                    
                     case "Medium":
                         Text(" \(multiplicationTable) x \(multNumbersMedium)").mainQuestionStyle()
                         
@@ -180,7 +182,7 @@ struct GameView: View {
                 ZStack{
                     VStack(spacing: 40){
                         
-                        TextField("Result", value: $usersAnswer, formatter: NumberFormatter())
+                        TextField("Result", text: $usersAnswer)
                             .textFieldStyle(.roundedBorder)
                             .background(Color.white)
                             .multilineTextAlignment(.center)
@@ -192,6 +194,7 @@ struct GameView: View {
                         Button("Enter"){
                             withAnimation{
                                 isAnswerEntered = true
+                                
                                 
                                 
                                 validatingAnswer(answer: usersAnswer)
@@ -212,7 +215,6 @@ struct GameView: View {
             .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                 Button("Next"){
                     withAnimation{
-                        usersAnswer = 0
                         
                         gameLimit(amountOfQuestions: amountOfQuestions)
                     }
@@ -240,6 +242,10 @@ struct GameView: View {
         
         
     }
+    
+
+    
+
     func gameLimit(amountOfQuestions: Int){
         if rounds < amountOfQuestions{
             nextRound()
@@ -264,11 +270,12 @@ struct GameView: View {
             ["penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
         }
     }
-    func validatingAnswer( answer : Int){
+    func validatingAnswer( answer : String){
+        usersAnswer = ""
         rounds += 1
         if difficultyLevel == "Easy"{
 
-            if usersAnswer == (multiplicationTable * multNumbersEasy){
+            if Int(usersAnswer) == (multiplicationTable * multNumbersEasy){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
@@ -280,7 +287,7 @@ struct GameView: View {
             }
         } else if difficultyLevel == "Medium"{
             
-            if usersAnswer == (multiplicationTable * multNumbersMedium){
+            if Int(usersAnswer) == (multiplicationTable * multNumbersMedium){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
@@ -291,7 +298,7 @@ struct GameView: View {
             }
         } else if difficultyLevel == "Hard"{
             
-            if usersAnswer == (multiplicationTable * multNumbersHard){
+            if Int(usersAnswer) == (multiplicationTable * multNumbersHard){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
