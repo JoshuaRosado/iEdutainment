@@ -70,6 +70,8 @@ struct GameView: View {
     @State private var isDifficultyEasy = false
     @State private var isDifficultyMedium = false
     @State private var isDifficultyHard = false
+    @State private var checkSettings = false
+    @State private var gameViewVisible: Bool
     @FocusState var isInputActive: Bool
     
     @State var animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
@@ -84,167 +86,173 @@ struct GameView: View {
 
     
     var body: some View {
-        ZStack{
-            switch difficultyLevel{
-            case "Easy":
-                Color.green.brightness(0.4)
-                    .ignoresSafeArea()
-                
-            case "Medium":
-                Color.purple.brightness(0.4)
-                    .ignoresSafeArea()
-            case "Hard":
-                Color.red.brightness(0.4)
-                    .ignoresSafeArea()
-            default:
-                Color.secondary
-                    .ignoresSafeArea()
-            }
-            
-            
-            VStack{
-                VStack{
+        if gameViewVisible{
+            ZStack{
+                switch difficultyLevel{
+                case "Easy":
+                    Color.green.brightness(0.4)
+                        .ignoresSafeArea()
                     
-                    ForEach(0..<1){ number in
-                        if difficultyLevel == "Easy"{
-                            Image(ImageResource(name: animalsEasyDifficulty[number], bundle: .main))
-                                .resizable()
-                                .frame(width: 100, height: 100).padding()
+                case "Medium":
+                    Color.purple.brightness(0.4)
+                        .ignoresSafeArea()
+                case "Hard":
+                    Color.red.brightness(0.4)
+                        .ignoresSafeArea()
+                default:
+                    Color.secondary
+                        .ignoresSafeArea()
+                }
+                
+                VStack{
+                    VStack{
+                        
+                        ForEach(0..<1){ number in
+                            if difficultyLevel == "Easy"{
+                                Image(ImageResource(name: animalsEasyDifficulty[number], bundle: .main))
+                                    .resizable()
+                                    .frame(width: 100, height: 100).padding()
+                            }
+                            else if difficultyLevel == "Medium"{
+                                Image(ImageResource(name: animalsMediumDifficulty[number], bundle: .main))
+                                    .resizable()
+                                    .frame(width: 100, height: 100).padding()
+                            }
+                            else if difficultyLevel == "Hard"{
+                                Image(ImageResource(name: animalsHardDifficulty[number], bundle: .main))
+                                    .resizable()
+                                    .frame(width: 100, height: 100).padding()
+                                
+                            }
                         }
-                        else if difficultyLevel == "Medium"{
-                            Image(ImageResource(name: animalsMediumDifficulty[number], bundle: .main))
-                                .resizable()
-                                .frame(width: 100, height: 100).padding()
-                        }
-                        else if difficultyLevel == "Hard"{
-                            Image(ImageResource(name: animalsHardDifficulty[number], bundle: .main))
-                                .resizable()
-                                .frame(width: 100, height: 100).padding()
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 20)
+                                .frame(maxWidth: 350, maxHeight: 50 )
+                            
+                            
+                                .foregroundStyle(.white)
+                            ForEach(0..<1){number in
+                                Text(motivationQuotes[number]).font(.system(size: 18)).foregroundStyle(.secondary
+                                )
+                            }
                             
                         }
+                        
                     }
+                    .padding(.top, 25)
+                    
                     ZStack{
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(maxWidth: 350, maxHeight: 50 )
+                        
+                        Circle()
+                            .stroke(lineWidth: 10)
+                            .frame( height: 250 )
+                            .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.4): isAnswerIncorrect ? .red.opacity(0.4) : .secondary.opacity(0.2))
+                            .animation(.linear(duration: 0.3).delay(0.1), value: isAnswerCorrect )
+                            .animation(.linear(duration: 0.3).delay(0.1),value: isAnswerIncorrect)
                         
                         
-                            .foregroundStyle(.white)
-                        ForEach(0..<1){number in
-                            Text(motivationQuotes[number]).font(.system(size: 18)).foregroundStyle(.secondary
-                            )
+                        Circle()
+                            .stroke(lineWidth: 15)
+                            .frame( height: 175 )
+                            .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.5): isAnswerIncorrect ? .red.opacity(0.5) :
+                                    .secondary.opacity(0.2))
+                            .animation(.linear(duration: 0.5).delay(0.2),value: isAnswerCorrect)
+                            .animation(.linear(duration: 0.5).delay(0.2) ,value: isAnswerIncorrect)
+                        
+                        
+                        
+                        switch difficultyLevel {
+                        case "Easy":
+                            Text(" \(multiplicationTable) x \(multNumbersEasy)").mainQuestionStyle()
+                            
+                            
+                        case "Medium":
+                            Text(" \(multiplicationTable) x \(multNumbersMedium)").mainQuestionStyle()
+                            
+                        case "Hard":
+                            Text(" \(multiplicationTable) x \(multNumbersHard)").mainQuestionStyle()
+                            
+                        default:
+                            Text("There was an error")
+                        }
+                        
+                        
+                        
+                    }
+                    .padding(.top,25)
+                    
+                    
+                    ZStack{
+                        
+                        VStack{
+                            VStack{
+                                Text("Enter result")
+                            }.frame(minWidth: 350, alignment: .topLeading).foregroundStyle(.secondary).fontDesign(.rounded).bold().opacity(0.4)
+                            TextField("", value: $usersAnswer, formatter: NumberFormatter())
+                                .textFieldStyle(.roundedBorder)
+                                .background(Color.white)
+                                .multilineTextAlignment(.center)
+                                .titleStyle()
+                                .keyboardType(.numberPad)
+                                .toolbar {
+                                    ToolbarItemGroup(placement: .keyboard){
+                                        Spacer()
+                                        
+                                        Button("Enter"){
+                                            withAnimation{
+                                                isAnswerEntered = true
+                                                isInputActive = false
+                                                
+                                                
+                                                
+                                                validatingAnswer(answer: usersAnswer)
+                                            }
+                                        }
+                                        
+                                        
+                                    }
+                                }
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    Spacer()
+                    Text("Score: \(score)").titleStyle().bold().opacity(0.4)
+                    
+                    
+                }
+                
+                .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
+                    Button("Next"){
+                        withAnimation{
+                            
+                            gameLimit(amountOfQuestions: amountOfQuestions)
                         }
                         
                     }
                     
                 }
-                .padding(.top, 25)
-                
-                ZStack{
-                    
-                    Circle()
-                        .stroke(lineWidth: 10)
-                        .frame( height: 250 )
-                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.4): isAnswerIncorrect ? .red.opacity(0.4) : .secondary.opacity(0.2))
-                        .animation(.linear(duration: 0.3).delay(0.1), value: isAnswerCorrect )
-                        .animation(.linear(duration: 0.3).delay(0.1),value: isAnswerIncorrect)
-                    
-                    
-                    Circle()
-                        .stroke(lineWidth: 15)
-                        .frame( height: 175 )
-                        .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.5): isAnswerIncorrect ? .red.opacity(0.5) :
-                                .secondary.opacity(0.2))
-                        .animation(.linear(duration: 0.5).delay(0.2),value: isAnswerCorrect)
-                        .animation(.linear(duration: 0.5).delay(0.2) ,value: isAnswerIncorrect)
-                    
-                    
-                    
-                    switch difficultyLevel {
-                    case "Easy":
-                        Text(" \(multiplicationTable) x \(multNumbersEasy)").mainQuestionStyle()
-                        
-                    
-                    case "Medium":
-                        Text(" \(multiplicationTable) x \(multNumbersMedium)").mainQuestionStyle()
-                        
-                    case "Hard":
-                        Text(" \(multiplicationTable) x \(multNumbersHard)").mainQuestionStyle()
-                        
-                    default:
-                        Text("There was an error")
-                    }
-                    
-                    
-                    
-                }
-                .padding(.top,25)
                 
                 
-                ZStack{
+                .alert("Game Over", isPresented: $isGameOver){
                     
-                    VStack{
-                        VStack{
-                            Text("Enter result")
-                        }.frame(minWidth: 350, alignment: .topLeading).foregroundStyle(.secondary).fontDesign(.rounded).bold().opacity(0.4)
-                        TextField("", value: $usersAnswer, formatter: NumberFormatter())
-                            .textFieldStyle(.roundedBorder)
-                            .background(Color.white)
-                            .multilineTextAlignment(.center)
-                            .titleStyle()
-                            .keyboardType(.numberPad)
-                            .toolbar {
-                                ToolbarItemGroup(placement: .keyboard){
-                                    Spacer()
-                                    
-                                    Button("Enter"){
-                                        withAnimation{
-                                            isAnswerEntered = true
-                                            isInputActive = false
-                                            
-                                            
-                                            
-                                            validatingAnswer(answer: usersAnswer)
-                                        }
-                                    }
-                                    
-                                    
-                                }
-                            }
-                        
-                        
-                    }
+                    Button("Try again", action: resetGame)
+                    Button("Settings", action: goToSettings)
+                    
+                } message: {
+                    Text("Final Score: \(score) / \(rounds)")
                     
                 }
                 
-                Spacer()
-                Text("Score: \(score)").titleStyle().bold().opacity(0.4)
                 
-                
-            }
-            
-            .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
-                Button("Next"){
-                    withAnimation{
-                        
-                        gameLimit(amountOfQuestions: amountOfQuestions)
-                    }
-
-                }
-                
-            }
-            
-            .alert("Game Over", isPresented: $isGameOver){
-                
-                Button("Try again", action: resetGame)
-                
-            } message: {
-                Text("Final Score: \(score) / \(rounds)")
- 
             }
             
             
         }
     }
+    
     func resetGame(){
         nextRound()
         rounds = 0
@@ -253,7 +261,10 @@ struct GameView: View {
         
     }
     
-
+    func goToSettings(){
+        checkSettings = true
+        gameViewVisible = false
+    }
     
 
     func gameLimit(amountOfQuestions: Int){
@@ -320,6 +331,6 @@ struct GameView: View {
         }
     }
 }
-#Preview {
-    GameView(multiplicationTable: 1, difficultyLevel: "Easy", amountOfQuestions: 5)
-}
+//#Preview {
+//    GameView( multiplicationTable: 1, difficultyLevel: "Easy", amountOfQuestions: 5)
+//}

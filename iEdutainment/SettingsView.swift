@@ -67,7 +67,7 @@ struct SettingsView: View {
                 .padding(.top, -100)
             }
             
-                .toolbar{
+                .toolbar {
                     Button("Start")
                     {
                         startGameMode()
