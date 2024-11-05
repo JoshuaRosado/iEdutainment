@@ -38,36 +38,42 @@ struct SettingsView: View {
     @State private var answerSubmited = false
     @State private var gameOver = false
     @State private var startGame = false
+    @State private var isSettingsVisible = true
+    
+    
     
     
     
     var body: some View{
-        NavigationStack{
+        if isSettingsVisible{
+            
+            
+            NavigationStack{
                 //====================== PICKER FOR MULT TABLE
-            VStack{
-                HStack{
- 
-                    Image("parrot", bundle: .main)
-                        .resizable()
-                        .frame(width: 75, height: 75)
-                    ZStack{
-                        Rectangle()
-                            .fill(.thinMaterial.opacity(0.8))
-                            .frame(width: 180, height: 50)
-                            .cornerRadius(30)
-                            .zIndex(1)
+                VStack{
+                    HStack{
                         
-                        Section{
-                            Text("Make your choice")
-                                .foregroundStyle(.secondary).bold()
-                                .zIndex(2)
+                        Image("parrot", bundle: .main)
+                            .resizable()
+                            .frame(width: 75, height: 75)
+                        ZStack{
+                            Rectangle()
+                                .fill(.thinMaterial.opacity(0.8))
+                                .frame(width: 180, height: 50)
+                                .cornerRadius(30)
+                                .zIndex(1)
+                            
+                            Section{
+                                Text("Make your choice")
+                                    .foregroundStyle(.secondary).bold()
+                                    .zIndex(2)
+                            }
                         }
                     }
+                    .padding(.top, -100)
                 }
-                .padding(.top, -100)
-            }
-            
-                .toolbar {
+                
+                .toolbar{
                     Button("Start")
                     {
                         startGameMode()
@@ -82,7 +88,7 @@ struct SettingsView: View {
                 
                 Section{}
                 
-            VStack(spacing: 20){
+                VStack(spacing: 20){
                     Text("multiplication table").titleStyle()
                     Picker("", selection: $multiplicationTableSelected) {
                         ForEach(Array(stride(from: 1, to: 13, by: 1)), id: \.self) { index in
@@ -117,7 +123,7 @@ struct SettingsView: View {
                         ForEach(amountOfQuestions, id: \.self){
                             Text(String($0))
                             
-                                
+                            
                         }
                         
                     }
@@ -125,22 +131,32 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
                     
                 }
-          
+                
                 
             }
-        .background(.blue) 
+            
+            .background(.blue)
+        }
         
         if startGame{
-            GameView(multiplicationTable: multiplicationTableSelected, difficultyLevel: difficultySelected, amountOfQuestions: questionAmountSelected)
+            
+            
+            GameView(multiplicationTable: multiplicationTableSelected, difficultyLevel: difficultySelected, amountOfQuestions: questionAmountSelected, gameViewVisible:startGame)
         }
-        }
+    }
     func startGameMode(){
         withAnimation(.linear(duration: 0.8)){
             startGame = true
+            
+  
         }
+        settingsDisappear()
+    }
     
-        
-        
+    func settingsDisappear(){
+        withAnimation(.linear(duration: 2)){
+            isSettingsVisible = false
+        }
     }
     
     

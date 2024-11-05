@@ -69,7 +69,7 @@ struct ContentView: View {
             }
             
             if play{
-               SettingsView()
+                SettingsView()
             }
                         
         }

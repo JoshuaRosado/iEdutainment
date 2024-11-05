@@ -71,7 +71,7 @@ struct GameView: View {
     @State private var isDifficultyMedium = false
     @State private var isDifficultyHard = false
     @State private var checkSettings = false
-    @State private var gameViewVisible: Bool
+    @State var gameViewVisible : Bool
     @FocusState var isInputActive: Bool
     
     @State var animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
@@ -86,6 +86,7 @@ struct GameView: View {
 
     
     var body: some View {
+        
         if gameViewVisible{
             ZStack{
                 switch difficultyLevel{
@@ -194,24 +195,29 @@ struct GameView: View {
                                 .multilineTextAlignment(.center)
                                 .titleStyle()
                                 .keyboardType(.numberPad)
-                                .toolbar {
-                                    ToolbarItemGroup(placement: .keyboard){
-                                        Spacer()
-                                        
-                                        Button("Enter"){
-                                            withAnimation{
-                                                isAnswerEntered = true
-                                                isInputActive = false
-                                                
-                                                
-                                                
-                                                validatingAnswer(answer: usersAnswer)
-                                            }
-                                        }
-                                        
-                                        
-                                    }
-                                }
+                            Button("Enter"){
+                                validatingAnswer(answer: usersAnswer)
+                                isAnswerEntered = true
+                                isInputActive = false
+                            }
+//                                .toolbar {
+//                                    ToolbarItemGroup(placement: .keyboard){
+//                                        Spacer()
+//                                        
+//                                        Button("Enter"){
+//                                            withAnimation{
+//                                                isAnswerEntered = true
+//                                                isInputActive = false
+//                                                
+//                                                
+//                                                
+//                                                validatingAnswer(answer: usersAnswer)
+//                                            }
+//                                        }
+//                                        
+//                                        
+//                                    }
+//                                }
                             
                             
                         }
@@ -250,6 +256,9 @@ struct GameView: View {
             }
             
             
+        }
+        if checkSettings{
+            SettingsView()
         }
     }
     
