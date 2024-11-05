@@ -51,6 +51,7 @@ struct GameView: View {
     @State var multiplicationTable: Int
     @State var difficultyLevel: String
     @State var amountOfQuestions: Int
+    @FocusState private var txtFieldIsFocused: Bool
     @State var rounds = 0
     @State private var isAnswerCorrect = false
     @State private var validatingTitle = ""
@@ -61,7 +62,12 @@ struct GameView: View {
     @State private var positionUpperCloud: Double = -175
     @State private var usersAnswer = 0
     @State private var easyNumList = []
-    
+    let numberFormatter: NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .none
+            formatter.zeroSymbol  = ""
+            return formatter
+        }()
     @State private var multNumbersEasy = Int.random(in: 0...10)
     @State private var multNumbersMedium = Int.random(in: 10...30)
     @State private var multNumbersHard = Int.random(in: 30...100)
@@ -189,41 +195,46 @@ struct GameView: View {
                             VStack{
                                 Text("Enter result")
                             }.frame(minWidth: 350, alignment: .topLeading).foregroundStyle(.secondary).fontDesign(.rounded).bold().opacity(0.4)
-                            TextField("", value: $usersAnswer, formatter: NumberFormatter())
+                            TextField("Results", value: $usersAnswer, formatter: numberFormatter
+                            )
                                 .textFieldStyle(.roundedBorder)
                                 .background(Color.white)
                                 .multilineTextAlignment(.center)
                                 .titleStyle()
+                                .focused($txtFieldIsFocused)
                                 .keyboardType(.numberPad)
-                            
+                                .onSubmit {
+                                    usersAnswer = 0
+                                                }
                             // Testing-=-------------
-//                            Button("Enter"){
-//                                isAnswerEntered = true
-//                                isInputActive = false
-//                                
-//                                
-//                                
-//                                validatingAnswer(answer: usersAnswer)
-//                                
-//                            }
-                                .toolbar {
-                                    ToolbarItemGroup(placement: .keyboard){
-                                        Spacer()
-                                        
-                                        Button("Enter"){
-                                            withAnimation{
-                                                isAnswerEntered = true
-                                                isInputActive = false
-                                                
-                                                
-                                                
-                                                validatingAnswer(answer: usersAnswer)
-                                            }
-                                        }
-                                        
-                                        
-                                    }
-                                }
+                            Button("Enter"){
+                                isAnswerEntered = true
+                                isInputActive = false
+                                
+                                
+                                
+                                
+                                validatingAnswer(answer: usersAnswer)
+                                
+                            }
+//                                .toolbar {
+//                                    ToolbarItemGroup(placement: .keyboard){
+//                                        Spacer()
+//                                        
+//                                        Button("Enter"){
+//                                            withAnimation{
+//                                                isAnswerEntered = true
+//                                                isInputActive = false
+//                                                
+//                                                
+//                                                
+//                                                validatingAnswer(answer: usersAnswer)
+//                                            }
+//                                        }
+//                                        
+//                                        
+//                                    }
+//                                }
                             
                             
                         }
@@ -239,6 +250,7 @@ struct GameView: View {
                 .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                     Button("Next"){
                         withAnimation{
+                            txtFieldIsFocused = false
                             
                             gameLimit(amountOfQuestions: amountOfQuestions)
                         }
