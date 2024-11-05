@@ -195,29 +195,35 @@ struct GameView: View {
                                 .multilineTextAlignment(.center)
                                 .titleStyle()
                                 .keyboardType(.numberPad)
-                            Button("Enter"){
-                                validatingAnswer(answer: usersAnswer)
-                                isAnswerEntered = true
-                                isInputActive = false
-                            }
-//                                .toolbar {
-//                                    ToolbarItemGroup(placement: .keyboard){
-//                                        Spacer()
-//                                        
-//                                        Button("Enter"){
-//                                            withAnimation{
-//                                                isAnswerEntered = true
-//                                                isInputActive = false
-//                                                
-//                                                
-//                                                
-//                                                validatingAnswer(answer: usersAnswer)
-//                                            }
-//                                        }
-//                                        
-//                                        
-//                                    }
-//                                }
+                            
+                            // Testing-=-------------
+//                            Button("Enter"){
+//                                isAnswerEntered = true
+//                                isInputActive = false
+//                                
+//                                
+//                                
+//                                validatingAnswer(answer: usersAnswer)
+//                                
+//                            }
+                                .toolbar {
+                                    ToolbarItemGroup(placement: .keyboard){
+                                        Spacer()
+                                        
+                                        Button("Enter"){
+                                            withAnimation{
+                                                isAnswerEntered = true
+                                                isInputActive = false
+                                                
+                                                
+                                                
+                                                validatingAnswer(answer: usersAnswer)
+                                            }
+                                        }
+                                        
+                                        
+                                    }
+                                }
                             
                             
                         }
@@ -271,8 +277,10 @@ struct GameView: View {
     }
     
     func goToSettings(){
-        checkSettings = true
-        gameViewVisible = false
+        withAnimation(.linear(duration: 0.8)){
+            checkSettings = true
+            gameViewVisible = false
+        }
     }
     
 
@@ -284,6 +292,7 @@ struct GameView: View {
         }
     }
     func nextRound(){
+        usersAnswer = 0
         isAnswerCorrect = false
         isAnswerIncorrect = false
         if difficultyLevel == "Easy"{
@@ -305,7 +314,7 @@ struct GameView: View {
         rounds += 1
         if difficultyLevel == "Easy"{
 
-            if usersAnswer == (multiplicationTable * multNumbersEasy){
+            if (usersAnswer) == (multiplicationTable * multNumbersEasy){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
@@ -317,7 +326,7 @@ struct GameView: View {
             }
         } else if difficultyLevel == "Medium"{
             
-            if usersAnswer == (multiplicationTable * multNumbersMedium){
+            if (usersAnswer) == (multiplicationTable * multNumbersMedium){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
@@ -328,7 +337,7 @@ struct GameView: View {
             }
         } else if difficultyLevel == "Hard"{
             
-            if usersAnswer == (multiplicationTable * multNumbersHard){
+            if (usersAnswer) == (multiplicationTable * multNumbersHard){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
