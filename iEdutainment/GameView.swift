@@ -87,6 +87,10 @@ struct GameView: View {
     
     @State private var motivationQuotes = [
         "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
+    
+    @State var listOfEasyNumbers = []
+    @State var listOfMediumNumbers = []
+    @State var listOfHardNumbers = []
      
 
     
@@ -288,6 +292,15 @@ struct GameView: View {
         
         
     }
+    
+    func easyNumList(emptyList:[Int]) -> [Int]{
+        var newList = emptyList
+        for num in 0..<11{
+            newList.append(num)
+        }
+        return newList.shuffled()
+    }
+    
     
     func goToSettings(){
         withAnimation(.linear(duration: 1.2) ){
