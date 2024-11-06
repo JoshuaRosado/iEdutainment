@@ -145,7 +145,7 @@ struct SettingsView: View {
         }
     }
     func startGameMode(){
-        withAnimation(.linear(duration: 0.8)){
+        withAnimation(.default){
             startGame = true
             
   
@@ -154,7 +154,7 @@ struct SettingsView: View {
     }
     
     func settingsDisappear(){
-        withAnimation(.linear(duration: 2)){
+        withAnimation(.bouncy(duration: 2)){
             isSettingsVisible = false
         }
     }

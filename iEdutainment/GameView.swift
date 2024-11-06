@@ -278,6 +278,7 @@ struct GameView: View {
         if checkSettings{
             SettingsView()
         }
+        
     }
     
     func resetGame(){
@@ -289,10 +290,12 @@ struct GameView: View {
     }
     
     func goToSettings(){
-        withAnimation(.linear(duration: 0.8)){
+        withAnimation(.bouncy(duration: 4) ){
             checkSettings = true
             gameViewVisible = false
+            
         }
+        
     }
     
 
