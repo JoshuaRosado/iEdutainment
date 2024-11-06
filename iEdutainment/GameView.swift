@@ -221,6 +221,7 @@ struct GameView: View {
                                             withAnimation{
                                                 isAnswerEntered = true
                                                 isInputActive = false
+                                                txtFieldIsFocused = false
                                                 
                                                 
                                                 
@@ -246,7 +247,7 @@ struct GameView: View {
                 .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                     Button("Next"){
                         withAnimation{
-                            txtFieldIsFocused = false
+//
                             
                             gameLimit(amountOfQuestions: amountOfQuestions)
                         }
