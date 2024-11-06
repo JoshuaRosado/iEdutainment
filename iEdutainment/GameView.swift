@@ -282,15 +282,18 @@ struct GameView: View {
     }
     
     func resetGame(){
-        nextRound()
-        rounds = 0
-        score = 0
+        withAnimation(.linear(duration: 1)){
+            nextRound()
+            rounds = 0
+            score = 0
+        }
+        
         
         
     }
     
     func goToSettings(){
-        withAnimation(.bouncy(duration: 4) ){
+        withAnimation(.linear(duration: 0.6) ){
             checkSettings = true
             gameViewVisible = false
             
@@ -310,6 +313,9 @@ struct GameView: View {
         usersAnswer = 0
         isAnswerCorrect = false
         isAnswerIncorrect = false
+        motivationQuotes = [
+            "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
+        
         if difficultyLevel == "Easy"{
             multNumbersEasy = Int.random(in: 0...10)
             animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
