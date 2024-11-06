@@ -27,9 +27,9 @@ struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var value = 1
     @State private var multiplicationTableSelected = 1
-    @State private var questionAmountSelected = 5
+    @State private var questionAmountSelected = 3
     @State private var difficultySelected = "Easy"
-    let amountOfQuestions = [5,8,10]
+    let amountOfQuestions = [3,8,10]
     let difficultyRange = ["Easy", "Medium", "Hard"]
     
     @State private var rounds = 0
