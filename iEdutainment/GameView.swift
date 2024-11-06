@@ -191,9 +191,6 @@ struct GameView: View {
                     ZStack{
                         
                         VStack{
-                            VStack{
-                                Text("Enter result")
-                            }.frame(minWidth: 350, alignment: .topLeading).foregroundStyle(.secondary).fontDesign(.rounded).bold().opacity(0.4)
                             TextField("Results", value: $usersAnswer, formatter: numberFormatter
                             )
                                 .textFieldStyle(.roundedBorder)
@@ -206,34 +203,34 @@ struct GameView: View {
                                     usersAnswer = 0
                                                 }
                             // Testing-=-------------
-                            Button("Enter"){
-                                isAnswerEntered = true
-                                isInputActive = false
-                                
-                                
-                                
-                                
-                                validatingAnswer(answer: usersAnswer)
-                                
-                            }
-//                                .toolbar {
-//                                    ToolbarItemGroup(placement: .keyboard){
-//                                        Spacer()
-//                                        
-//                                        Button("Enter"){
-//                                            withAnimation{
-//                                                isAnswerEntered = true
-//                                                isInputActive = false
-//                                                
-//                                                
-//                                                
-//                                                validatingAnswer(answer: usersAnswer)
-//                                            }
-//                                        }
-//                                        
-//                                        
-//                                    }
-//                                }
+//                            Button("Enter"){
+//                                isAnswerEntered = true
+//                                isInputActive = false
+//                                
+//                                
+//                                
+//                                
+//                                validatingAnswer(answer: usersAnswer)
+//                                
+//                            }
+                                .toolbar {
+                                    ToolbarItemGroup(placement: .keyboard){
+                                        Spacer()
+                                        
+                                        Button("Enter"){
+                                            withAnimation{
+                                                isAnswerEntered = true
+                                                isInputActive = false
+                                                
+                                                
+                                                
+                                                validatingAnswer(answer: usersAnswer)
+                                            }
+                                        }
+                                        
+                                        
+                                    }
+                                }
                             
                             
                         }
