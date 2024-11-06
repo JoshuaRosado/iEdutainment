@@ -42,7 +42,7 @@ struct ContentView: View {
                     VStack{
                         Button(){
                             
-                            withAnimation(.bouncy(duration: 0.8)){
+                            withAnimation(.linear(duration: 0.4)){
                                 play.toggle()
                                 startGame()
                                 

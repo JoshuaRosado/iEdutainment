@@ -61,7 +61,6 @@ struct GameView: View {
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
     @State private var usersAnswer = 0
-    @State private var easyNumList = []
     let numberFormatter: NumberFormatter = {
             let formatter = NumberFormatter()
             formatter.numberStyle = .none
@@ -88,7 +87,7 @@ struct GameView: View {
     
     @State private var motivationQuotes = [
         "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
-    
+     
 
     
     var body: some View {
@@ -282,7 +281,7 @@ struct GameView: View {
     }
     
     func resetGame(){
-        withAnimation(.linear(duration: 1)){
+        withAnimation(.linear(duration: 1.5)){
             nextRound()
             rounds = 0
             score = 0
@@ -293,10 +292,16 @@ struct GameView: View {
     }
     
     func goToSettings(){
-        withAnimation(.linear(duration: 0.6) ){
+        withAnimation(.linear(duration: 1.2) ){
             checkSettings = true
-            gameViewVisible = false
             
+        }
+        hideGame()
+        
+    }
+    func hideGame(){
+        withAnimation(.bouncy(duration:1.4)){
+            gameViewVisible = false
         }
         
     }
