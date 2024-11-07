@@ -189,10 +189,14 @@ struct GameView: View {
                             
                             
                         case "Medium":
-                            Text(" \(multiplicationTable) x \(multNumbersMedium)").mainQuestionStyle()
+                            ForEach(0..<1){ number in
+                                Text(" \(multiplicationTable) x \(mediumList[number])").mainQuestionStyle()
+                            }
                             
                         case "Hard":
-                            Text(" \(multiplicationTable) x \(multNumbersHard)").mainQuestionStyle()
+                            ForEach(0..<1){ number in
+                                Text(" \(multiplicationTable) x \(hardList[number])").mainQuestionStyle()
+                            }
                             
                         default:
                             Text("There was an error")
@@ -350,10 +354,12 @@ struct GameView: View {
             animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
         
         } else if difficultyLevel == "Medium"{
+            mediumList = [6,7,8,9,10].shuffled()
             multNumbersMedium = Int.random(in: 10...30)
             animalsMediumDifficulty =
             [ "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda"].shuffled()
-        } else if difficultyLevel == "Hard"{
+        } else if difficultyLevel == "Hard" {
+            hardList = [11,12,13,14,15].shuffled()
             multNumbersHard = Int.random(in: 30...100)
             animalsHardDifficulty =
             ["penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
