@@ -8,7 +8,13 @@
 import SwiftUI
 
 
-
+struct QuestionGenerator: View {
+    
+    var body: some View {
+        Text("Hello")
+        
+    }
+}
 struct QuestionModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -67,8 +73,11 @@ struct GameView: View {
             formatter.zeroSymbol  = ""
             return formatter
         }()
+    @State private var easyList = [1,2,3,4,5]
     @State private var multNumbersEasy = Int.random(in: 0...10)
+    @State private var mediumList = [6,7,8,9,10]
     @State private var multNumbersMedium = Int.random(in: 10...30)
+    @State private var hardList = [11,12,13,14,15]
     @State private var multNumbersHard = Int.random(in: 30...100)
     @State private var score = 0
     @State private var isGameOver = false
@@ -173,7 +182,10 @@ struct GameView: View {
                         
                         switch difficultyLevel {
                         case "Easy":
-                            Text(" \(multiplicationTable) x \(multNumbersEasy)").mainQuestionStyle()
+                            ForEach(0..<1){ number in
+                                Text(" \(multiplicationTable) x \(easyList[number])").mainQuestionStyle()
+                            }
+                            
                             
                             
                         case "Medium":
@@ -333,6 +345,7 @@ struct GameView: View {
             "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
         
         if difficultyLevel == "Easy"{
+            easyList = [1,2,3,4,5].shuffled()
             multNumbersEasy = Int.random(in: 0...10)
             animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
         
