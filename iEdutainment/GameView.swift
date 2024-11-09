@@ -67,17 +67,18 @@ struct GameView: View {
     @State private var positionLowerCloud: Double = -150
     @State private var positionUpperCloud: Double = -175
     @State private var usersAnswer = 0
+    @State private var counter = 0
     let numberFormatter: NumberFormatter = {
             let formatter = NumberFormatter()
             formatter.numberStyle = .none
             formatter.zeroSymbol  = ""
             return formatter
         }()
-    @State private var easyList = [1,2,3,4,5]
+    @State private var easyList = [1,2,3,4,5].shuffled()
     @State private var multNumbersEasy = Int.random(in: 0...10)
-    @State private var mediumList = [6,7,8,9,10]
+    @State private var mediumList = [6,7,8,9,10].shuffled()
     @State private var multNumbersMedium = Int.random(in: 10...30)
-    @State private var hardList = [11,12,13,14,15]
+    @State private var hardList = [11,12,13,14,15].shuffled()
     @State private var multNumbersHard = Int.random(in: 30...100)
     @State private var score = 0
     @State private var isGameOver = false
@@ -182,8 +183,10 @@ struct GameView: View {
                         
                         switch difficultyLevel {
                         case "Easy":
+                        
                             ForEach(0..<1){ number in
-                                Text(" \(multiplicationTable) x \(easyList[number])").mainQuestionStyle()
+                                Text(" \(multiplicationTable) x \(easyList[counter])").mainQuestionStyle()
+                                
                             }
                             
                             
@@ -300,14 +303,20 @@ struct GameView: View {
     
     func resetGame(){
         withAnimation(.linear(duration: 1.5)){
+            easyList = [1,2,3,4,5].shuffled()
+            mediumList = [6,7,8,9,10].shuffled()
+            hardList = [11,12,13,14,15].shuffled()
             nextRound()
             rounds = 0
             score = 0
+            counter = 0
         }
         
         
         
     }
+    
+
     
     func easyNumList(emptyList:[Int]) -> [Int]{
         var newList = emptyList
@@ -342,6 +351,13 @@ struct GameView: View {
         }
     }
     func nextRound(){
+        if counter < 5 {
+            counter += 1
+        } else{
+            counter = 0
+        }
+        
+        
         usersAnswer = 0
         isAnswerCorrect = false
         isAnswerIncorrect = false
@@ -349,8 +365,8 @@ struct GameView: View {
             "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
         
         if difficultyLevel == "Easy"{
-            easyList = [1,2,3,4,5].shuffled()
-            multNumbersEasy = Int.random(in: 0...10)
+//
+//            multNumbersEasy = Int.random(in: 0...10)
             animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
         
         } else if difficultyLevel == "Medium"{
