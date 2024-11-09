@@ -61,7 +61,9 @@ struct GameView: View {
     @State var rounds = 0
     @State private var isAnswerCorrect = false
     @State private var validatingTitle = ""
-    @State private var correctAnswer = 0
+    @State private var correctAnswerEasy = 0
+    @State private var correctAnswerMedium = 0
+    @State private var correctAnswerHard = 0
     @State private var resultMessage = ""
     @State private var isAnswerIncorrect = false
     @State private var isAnswerEntered = false
@@ -70,6 +72,7 @@ struct GameView: View {
     @State private var positionUpperCloud: Double = -175
     @State private var usersAnswer = 0
     @State private var counter = 0
+    @State private var resultMessagesCounter = 0
     let numberFormatter: NumberFormatter = {
             let formatter = NumberFormatter()
             formatter.numberStyle = .none
@@ -195,12 +198,12 @@ struct GameView: View {
                             
                         case "Medium":
                             ForEach(0..<1){ number in
-                                Text(" \(multiplicationTable) x \(mediumList[number])").mainQuestionStyle()
+                                Text(" \(multiplicationTable) x \(mediumList[counter])").mainQuestionStyle()
                             }
                             
                         case "Hard":
                             ForEach(0..<1){ number in
-                                Text(" \(multiplicationTable) x \(hardList[number])").mainQuestionStyle()
+                                Text(" \(multiplicationTable) x \(hardList[counter])").mainQuestionStyle()
                             }
                             
                         default:
@@ -299,10 +302,12 @@ struct GameView: View {
             easyList = [1,2,3,4,5].shuffled()
             mediumList = [6,7,8,9,10].shuffled()
             hardList = [11,12,13,14,15].shuffled()
+            resultMotivationMessages = ["Great job!", "Amazing!", "You're awesome!", "Yeah!", "You are a Pro!", "Look at you go!", "Outstanding!", "Perfecto!", "Muy bien!", "Buen trabajo!", "Excelente", "Excellent"].shuffled()
             nextRound()
             rounds = 0
             score = 0
             counter = 0
+            resultMessagesCounter = 0
         }
         
         
@@ -344,6 +349,13 @@ struct GameView: View {
         }
     }
     func nextRound(){
+        
+        if resultMessagesCounter < 12{
+            resultMessagesCounter += 1
+        } else if resultMessagesCounter == 12{
+            counter = 0
+        }
+        
         if counter < 4 {
             counter += 1
         } else if counter == 4 {
@@ -372,52 +384,55 @@ struct GameView: View {
     }
     func validatingAnswer( answer : Int){
         multNumbersEasy = (easyList[counter])
-        multNumbersMedium = (easyList[counter])
-        multNumbersHard = (easyList[counter])
-        correctAnswer = multiplicationTable * multNumbersEasy
+        multNumbersMedium = (mediumList[counter])
+        multNumbersHard = (hardList[counter])
+        correctAnswerEasy = multiplicationTable * multNumbersEasy
+        correctAnswerMedium = multiplicationTable * multNumbersMedium
+        correctAnswerHard = multiplicationTable * multNumbersHard
+
         usersAnswer = answer
         rounds += 1
         if difficultyLevel == "Easy"{
 
-            if (usersAnswer) == (correctAnswer){
+            if (usersAnswer) == (correctAnswerEasy){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
-                resultMessage = "Great job!"
+                resultMessage = resultMotivationMessages[resultMessagesCounter]
                 
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
-                resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswer)"
+                resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswerEasy)"
                 
                 
             }
         } else if difficultyLevel == "Medium"{
             
-            if (usersAnswer) == correctAnswer{
+            if (usersAnswer) == correctAnswerMedium{
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
-                resultMessage = "Great job!"
+                resultMessage = resultMotivationMessages[resultMessagesCounter]
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
-                resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswer)"
+                resultMessage = "\(multiplicationTable) x \(multNumbersMedium) =  \(correctAnswerMedium)"
             }
         } else if difficultyLevel == "Hard"{
             
-            if (usersAnswer) == correctAnswer{
+            if (usersAnswer) == correctAnswerHard{
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
-                resultMessage = "Great job!"
+                resultMessage = resultMotivationMessages[resultMessagesCounter]
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
-                resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswer)"
+                resultMessage = "\(multiplicationTable) x \(multNumbersHard) =  \(correctAnswerHard)"
             }
         }
     }
