@@ -135,16 +135,19 @@ struct GameView: View {
                             if difficultyLevel == "Easy"{
                                 Image(ImageResource(name: animalsEasyDifficulty[number], bundle: .main))
                                     .resizable()
+                                    .scaledToFit()
                                     .frame(width: 100, height: 100).padding()
                             }
                             else if difficultyLevel == "Medium"{
                                 Image(ImageResource(name: animalsMediumDifficulty[number], bundle: .main))
                                     .resizable()
+                                    .scaledToFit()
                                     .frame(width: 100, height: 100).padding()
                             }
                             else if difficultyLevel == "Hard"{
                                 Image(ImageResource(name: animalsHardDifficulty[number], bundle: .main))
                                     .resizable()
+                                    .scaledToFit()
                                     .frame(width: 100, height: 100).padding()
                                 
                             }
