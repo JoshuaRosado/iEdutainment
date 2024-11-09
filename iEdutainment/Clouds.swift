@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct Clouds: View {
+    @Environment(\.colorScheme) var colorScheme
     var lowerCloud: Double
     var upperCloud: Double
+    var lowerCloudColor = Color(red: 0.8, green:0.8 , blue:0.8 )
+    var upperCloudColor = Color(red: 0.7, green:0.7 , blue:0.7 )
     
     var body: some View{
         VStack{
@@ -29,7 +32,7 @@ struct Clouds: View {
                     .frame(width: 125, height: 180)
                     .position(x: 200, y: -200)
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(colorScheme == .light ? .white : lowerCloudColor)
             .position(x: CGFloat(lowerCloud), y: CGFloat(-100))
             .animation(.linear(duration: 25).repeatForever(autoreverses: false), value: lowerCloud)
             .shadow(color: .black.opacity(0.2), radius: 30, x: 100, y: 600)
@@ -55,9 +58,14 @@ struct Clouds: View {
                     .position(x: 180, y: -200)
             }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(colorScheme == .light ? .white : upperCloudColor)
         .position(x: CGFloat(upperCloud), y: CGFloat(120))
         .animation(.linear(duration: 45).repeatForever(autoreverses: false), value: upperCloud)
         .shadow(color: .black.opacity(0.2), radius: 30, x: 100, y: 600)
     }
+}
+
+
+#Preview {
+    ContentView()
 }

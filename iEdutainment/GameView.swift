@@ -226,7 +226,7 @@ struct GameView: View {
                         VStack{
                             TextField("Results", value: $usersAnswer, formatter: numberFormatter
                             )
-                                .textFieldStyle(.roundedBorder)
+                                
                                 .background(Color.white)
                                 .multilineTextAlignment(.center)
                                 .titleStyle()
@@ -321,7 +321,7 @@ struct GameView: View {
             print("score: \(score), amountOfQuestions: \(amountOfQuestions)")
         }
         else if ((Double(score) / Double(amountOfQuestions))) < Double(0.70){
-            var questionResult = ((Double(score) / Double(amountOfQuestions)) * 100.00)
+            let questionResult = ((Double(score) / Double(amountOfQuestions)) * 100.00)
             
             
             finalMessage = "\(Int(questionResult))% \n Failed"
@@ -329,7 +329,7 @@ struct GameView: View {
         }
         else if ((Double(score) / Double(amountOfQuestions))) >=  Double(0.70){
             
-            var questionResult = ((Double(score) / Double(amountOfQuestions)) * 100.00)
+            let questionResult = ((Double(score) / Double(amountOfQuestions)) * 100.00)
             finalMessage = "\(Int(questionResult))% \n Passed"
             
 
