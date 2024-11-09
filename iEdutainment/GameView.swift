@@ -18,7 +18,7 @@ struct QuestionGenerator: View {
 struct QuestionModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(.white).bold().font(.system(size: 50)).shadow(color: .black.opacity(0.5), radius: 50).fontDesign(.rounded)
+            .bold().font(.system(size: 50)).shadow(color: .black.opacity(0.5), radius: 50).fontDesign(.rounded)
     }
 }
 
@@ -116,15 +116,38 @@ struct GameView: View {
             ZStack{
                 switch difficultyLevel{
                 case "Easy":
-                    Color.green.brightness(0.4)
-                        .ignoresSafeArea()
-                    
+                    if colorScheme == .light{
+                        Color.green.brightness(0.4)
+                            .ignoresSafeArea()
+                        
+                    } else {
+                        Color.green.brightness(-0.7)
+                            .ignoresSafeArea()
+                          
+                    } 
+                   
                 case "Medium":
-                    Color.purple.brightness(0.4)
-                        .ignoresSafeArea()
+                    if colorScheme == .light{
+                        Color.purple.brightness(0.4)
+                            .ignoresSafeArea()
+                        
+                    } else {
+                        Color.purple.brightness(-0.7)
+                            .ignoresSafeArea()
+                        
+                    }
+                    
                 case "Hard":
-                    Color.red.brightness(0.4)
-                        .ignoresSafeArea()
+                    if colorScheme == .light{
+                        Color.red.brightness(0.4)
+                            .ignoresSafeArea()
+                        
+                    } else {
+                        Color.red.brightness(-0.7)
+                            .ignoresSafeArea()
+                        
+                    }
+                    
                 default:
                     Color.secondary
                         .ignoresSafeArea()
@@ -157,9 +180,7 @@ struct GameView: View {
                         ZStack{
                             RoundedRectangle(cornerRadius: 20)
                                 .frame(maxWidth: 350, maxHeight: 50 )
-                            
-                            
-                                .foregroundStyle(.white)
+                                .foregroundStyle((colorScheme == .light ? .white : .black.opacity(0.8)))
                             ForEach(0..<1){number in
                                 Text(motivationQuotes[number]).font(.system(size: 18)).foregroundStyle(.secondary
                                 )
@@ -175,7 +196,8 @@ struct GameView: View {
                         Circle()
                             .stroke(lineWidth: 10)
                             .frame( height: 250 )
-                            .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.4): isAnswerIncorrect ? .red.opacity(0.4) : .secondary.opacity(0.2))
+                            .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.4): isAnswerIncorrect ? .red.opacity(0.4) :
+                                    .gray.opacity(0.2))
                             .animation(.linear(duration: 0.3).delay(0.1), value: isAnswerCorrect )
                             .animation(.linear(duration: 0.3).delay(0.1),value: isAnswerIncorrect)
                         
@@ -184,7 +206,7 @@ struct GameView: View {
                             .stroke(lineWidth: 15)
                             .frame( height: 175 )
                             .foregroundStyle(isAnswerCorrect ? .blue.opacity(0.5): isAnswerIncorrect ? .red.opacity(0.5) :
-                                    .secondary.opacity(0.2))
+                                    .gray.opacity(0.2))
                             .animation(.linear(duration: 0.5).delay(0.2),value: isAnswerCorrect)
                             .animation(.linear(duration: 0.5).delay(0.2) ,value: isAnswerIncorrect)
                         
@@ -214,11 +236,15 @@ struct GameView: View {
                         default:
                             Text("There was an error")
                         }
+                            
                         
                         
                         
                     }
+                    
                     .padding(.top,25)
+                    .foregroundStyle(colorScheme == .light ? .white : .white.opacity(0.6))
+                    
                     
                     
                     ZStack{
@@ -227,7 +253,7 @@ struct GameView: View {
                             TextField("Results", value: $usersAnswer, formatter: numberFormatter
                             )
                                 
-                                .background(Color.white)
+                            .background(colorScheme == .light ? .white : .black)
                                 .multilineTextAlignment(.center)
                                 .titleStyle()
                                 .focused($txtFieldIsFocused)
