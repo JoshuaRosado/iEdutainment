@@ -91,6 +91,8 @@ struct GameView: View {
     @State private var isDifficultyMedium = false
     @State private var isDifficultyHard = false
     @State private var checkSettings = false
+    
+    @State private var finalMessage = ""
     @State var gameViewVisible : Bool
     @FocusState var isInputActive: Bool
     
@@ -266,12 +268,23 @@ struct GameView: View {
                 }
                 
                 .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
-                    Button("Next"){
-                        withAnimation{
- 
-                            gameLimit(amountOfQuestions: amountOfQuestions)
-                        }
+                    if rounds < amountOfQuestions{
                         
+                        
+                        Button("Next"){
+                            withAnimation{
+                                
+                                gameLimit(amountOfQuestions: amountOfQuestions)
+                            }
+                            
+                        }
+                    } else if rounds == amountOfQuestions{
+                        Button("See results"){
+                            withAnimation{
+                                isGameOver = true
+                                
+                            }
+                        }
                     }
                     
                 }message: {
@@ -285,7 +298,8 @@ struct GameView: View {
                     Button("Settings", action: goToSettings)
                     
                 } message: {
-                    Text("Final Score: \(score) / \(rounds)")
+                    Text("Final Score: \(score) / \(rounds) \n \(finalMessage)")
+                    
                     
                 }
                 
@@ -300,6 +314,13 @@ struct GameView: View {
         
     }
     
+    func endResult(){
+        if (score / amountOfQuestions) * 100 < 50 {
+            print("\(score) \(amountOfQuestions)")
+            finalMessage = "Practice more so you can pass"
+        } else if (score / amountOfQuestions) * 100 > 50{
+            finalMessage = "You passed! Great work"}
+    }
     func resetGame(){
         withAnimation(.linear(duration: 1.5)){
             easyList = [1,2,3,4,5].shuffled()
