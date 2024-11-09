@@ -282,6 +282,7 @@ struct GameView: View {
                         Button("See results"){
                             withAnimation{
                                 isGameOver = true
+                                endResult()
                                 
                             }
                         }
@@ -298,7 +299,7 @@ struct GameView: View {
                     Button("Settings", action: goToSettings)
                     
                 } message: {
-                    Text("Final Score: \(score) / \(rounds) \n \(finalMessage)")
+                    Text(" \(score) / \(rounds) \n \(finalMessage)")
                     
                     
                 }
@@ -315,11 +316,27 @@ struct GameView: View {
     }
     
     func endResult(){
-        if (score / amountOfQuestions) * 100 < 50 {
-            print("\(score) \(amountOfQuestions)")
-            finalMessage = "Practice more so you can pass"
-        } else if (score / amountOfQuestions) * 100 > 50{
-            finalMessage = "You passed! Great work"}
+        if score == amountOfQuestions{
+            finalMessage = "100% Perfect \n Passed"
+            print("score: \(score), amountOfQuestions: \(amountOfQuestions)")
+        }
+        else if ((Double(score) / Double(amountOfQuestions))) < Double(0.70){
+            var questionResult = ((Double(score) / Double(amountOfQuestions)) * 100.00)
+            
+            
+            finalMessage = "\(Int(questionResult))% \n Failed"
+
+        }
+        else if ((Double(score) / Double(amountOfQuestions))) >=  Double(0.70){
+            
+            var questionResult = ((Double(score) / Double(amountOfQuestions)) * 100.00)
+            finalMessage = "\(Int(questionResult))% \n Passed"
+            
+
+        }
+        
+        
+        
     }
     func resetGame(){
         withAnimation(.linear(duration: 1.5)){
@@ -407,6 +424,7 @@ struct GameView: View {
         }
     }
     func validatingAnswer( answer : Int){
+ 
         multNumbersEasy = (easyList[counter])
         multNumbersMedium = (mediumList[counter])
         multNumbersHard = (hardList[counter])
@@ -461,6 +479,6 @@ struct GameView: View {
         }
     }
 }
-//#Preview {
-//    GameView( multiplicationTable: 1, difficultyLevel: "Easy", amountOfQuestions: 5)
-//}
+#Preview {
+    ContentView()
+}
