@@ -75,7 +75,7 @@ struct ContentView: View {
                     
                 
             }
-        
+         
     }
     func startGame(){
         gameStarted = false

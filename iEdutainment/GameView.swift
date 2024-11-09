@@ -75,11 +75,11 @@ struct GameView: View {
             return formatter
         }()
     @State private var easyList = [1,2,3,4,5].shuffled()
-    @State private var multNumbersEasy = Int.random(in: 0...10)
+    @State private var multNumbersEasy = 0
     @State private var mediumList = [6,7,8,9,10].shuffled()
-    @State private var multNumbersMedium = Int.random(in: 10...30)
+    @State private var multNumbersMedium = 0
     @State private var hardList = [11,12,13,14,15].shuffled()
-    @State private var multNumbersHard = Int.random(in: 30...100)
+    @State private var multNumbersHard = 0
     @State private var score = 0
     @State private var isGameOver = false
     @State private var isDifficultyEasy = false
@@ -98,10 +98,6 @@ struct GameView: View {
     @State private var motivationQuotes = [
         "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
     
-    @State var listOfEasyNumbers = []
-    @State var listOfMediumNumbers = []
-    @State var listOfHardNumbers = []
-     
 
     
     var body: some View {
@@ -187,6 +183,7 @@ struct GameView: View {
                             ForEach(0..<1){ number in
                                 Text(" \(multiplicationTable) x \(easyList[counter])").mainQuestionStyle()
                                 
+                                
                             }
                             
                             
@@ -225,17 +222,7 @@ struct GameView: View {
                                 .onSubmit {
                                     usersAnswer = 0
                                                 }
-                            // Testing-=-------------
-//                            Button("Enter"){
-//                                isAnswerEntered = true
-//                                isInputActive = false
-//                                
-//                                
-//                                
-//                                
-//                                validatingAnswer(answer: usersAnswer)
-//                                
-//                            }
+
                                 .toolbar {
                                     ToolbarItemGroup(placement: .keyboard){
                                         Spacer()
@@ -351,9 +338,9 @@ struct GameView: View {
         }
     }
     func nextRound(){
-        if counter < 5 {
+        if counter < 4 {
             counter += 1
-        } else{
+        } else if counter == 4 {
             counter = 0
         }
         
@@ -365,23 +352,22 @@ struct GameView: View {
             "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
         
         if difficultyLevel == "Easy"{
-//
-//            multNumbersEasy = Int.random(in: 0...10)
             animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
         
         } else if difficultyLevel == "Medium"{
-            mediumList = [6,7,8,9,10].shuffled()
-            multNumbersMedium = Int.random(in: 10...30)
+
             animalsMediumDifficulty =
             [ "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda"].shuffled()
         } else if difficultyLevel == "Hard" {
-            hardList = [11,12,13,14,15].shuffled()
-            multNumbersHard = Int.random(in: 30...100)
+
             animalsHardDifficulty =
             ["penguin", "pig", "rabbit", "rhino", "sloth", "snake", "walrus", "whale", "zebra"].shuffled()
         }
     }
     func validatingAnswer( answer : Int){
+        multNumbersEasy = (easyList[counter])
+        multNumbersMedium = (easyList[counter])
+        multNumbersHard = (easyList[counter])
         usersAnswer = answer
         rounds += 1
         if difficultyLevel == "Easy"{
