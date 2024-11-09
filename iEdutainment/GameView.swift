@@ -61,6 +61,8 @@ struct GameView: View {
     @State var rounds = 0
     @State private var isAnswerCorrect = false
     @State private var validatingTitle = ""
+    @State private var correctAnswer = 0
+    @State private var resultMessage = ""
     @State private var isAnswerIncorrect = false
     @State private var isAnswerEntered = false
     @Environment(\.colorScheme) var colorScheme
@@ -89,6 +91,7 @@ struct GameView: View {
     @State var gameViewVisible : Bool
     @FocusState var isInputActive: Bool
     
+    
     @State var animalsEasyDifficulty = ["bear","buffalo","chick","chicken", "cow","crocodile", "dog", "duck", "elephant"].shuffled()
     @State var animalsMediumDifficulty =
     [ "frog", "giraffe", "goat", "gorilla", "hippo", "horse", "monkey", "moose", "narwhal", "owl", "panda"].shuffled()
@@ -97,6 +100,8 @@ struct GameView: View {
     
     @State private var motivationQuotes = [
         "You got this!", "You are so smart", "Keep going!", "Amazing job!", "You are learning fast", "If you don't know, is okay.", "You are getting better", "Don't give up", "Learning makes you smarter"].shuffled()
+    
+    @State private var resultMotivationMessages = ["Great job!", "Amazing!", "You're awesome!", "Yeah!", "You are a Pro!", "Look at you go!", "Outstanding!", "Perfecto!", "Muy bien!", "Buen trabajo!", "Excelente", "Excellent"].shuffled()
     
 
     
@@ -257,13 +262,14 @@ struct GameView: View {
                 .alert("\(validatingTitle)", isPresented: $isAnswerEntered){
                     Button("Next"){
                         withAnimation{
-//
-                            
+ 
                             gameLimit(amountOfQuestions: amountOfQuestions)
                         }
                         
                     }
                     
+                }message: {
+                    Text("\(resultMessage)")
                 }
                 
                 
@@ -368,41 +374,50 @@ struct GameView: View {
         multNumbersEasy = (easyList[counter])
         multNumbersMedium = (easyList[counter])
         multNumbersHard = (easyList[counter])
+        correctAnswer = multiplicationTable * multNumbersEasy
         usersAnswer = answer
         rounds += 1
         if difficultyLevel == "Easy"{
 
-            if (usersAnswer) == (multiplicationTable * multNumbersEasy){
+            if (usersAnswer) == (correctAnswer){
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
+                resultMessage = "Great job!"
                 
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
+                resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswer)"
+                
+                
             }
         } else if difficultyLevel == "Medium"{
             
-            if (usersAnswer) == (multiplicationTable * multNumbersMedium){
+            if (usersAnswer) == correctAnswer{
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
+                resultMessage = "Great job!"
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
+                resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswer)"
             }
         } else if difficultyLevel == "Hard"{
             
-            if (usersAnswer) == (multiplicationTable * multNumbersHard){
+            if (usersAnswer) == correctAnswer{
                 score += 1
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
+                resultMessage = "Great job!"
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
+                resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswer)"
             }
         }
     }
