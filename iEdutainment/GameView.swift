@@ -393,7 +393,7 @@ struct GameView: View {
     
     
     func goToSettings(){
-        withAnimation(.linear(duration: 1.2) ){
+        withAnimation(.linear(duration: 1) ){
             checkSettings = true
             
         }
@@ -401,7 +401,7 @@ struct GameView: View {
         
     }
     func hideGame(){
-        withAnimation(.bouncy(duration:1.4)){
+        withAnimation(.spring(duration:1.2)){
             gameViewVisible = false
         }
         
