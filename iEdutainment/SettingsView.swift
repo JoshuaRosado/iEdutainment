@@ -72,6 +72,16 @@ struct SettingsView: View {
                     }
                     .padding(.top, -100)
                 }
+                            .onAppear(perform:  {
+                                SoundManager.instancce.playSound(sound: .gameMusic)
+                
+                
+                        })
+                            .onDisappear(perform:  {
+                                SoundManager.instancce.playSound(sound: .swoosh )
+                
+                
+                        })
                 
                 .toolbar{
                     Button("Start")

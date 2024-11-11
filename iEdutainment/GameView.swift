@@ -345,12 +345,15 @@ struct GameView: View {
         if score == amountOfQuestions{
             finalMessage = "100% Perfect \n Passed"
             print("score: \(score), amountOfQuestions: \(amountOfQuestions)")
+            SoundManager.instancce.playSound(sound: .pass)
         }
         else if ((Double(score) / Double(amountOfQuestions))) < Double(0.70){
             let questionResult = ((Double(score) / Double(amountOfQuestions)) * 100.00)
             
             
             finalMessage = "\(Int(questionResult))% \n Failed"
+            
+            SoundManager.instancce.playSound(sound: .fail)
 
         }
         else if ((Double(score) / Double(amountOfQuestions))) >=  Double(0.70){
@@ -467,12 +470,14 @@ struct GameView: View {
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
                 resultMessage = resultMotivationMessages[resultMessagesCounter]
+                SoundManager.instancce.playSound(sound: .correct)
                 
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
                 resultMessage = "\(multiplicationTable) x \(multNumbersEasy) =  \(correctAnswerEasy)"
+                SoundManager.instancce.playSound(sound: .incorrect)
                 
                 
             }
@@ -483,11 +488,13 @@ struct GameView: View {
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
                 resultMessage = resultMotivationMessages[resultMessagesCounter]
+                SoundManager.instancce.playSound(sound: .correct)
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
                 resultMessage = "\(multiplicationTable) x \(multNumbersMedium) =  \(correctAnswerMedium)"
+                SoundManager.instancce.playSound(sound: .incorrect)
             }
         } else if difficultyLevel == "Hard"{
             
@@ -496,11 +503,13 @@ struct GameView: View {
                 isAnswerCorrect = true
                 validatingTitle = "Correct"
                 resultMessage = resultMotivationMessages[resultMessagesCounter]
+                SoundManager.instancce.playSound(sound: .correct)
                 
             } else {
                 isAnswerIncorrect = true
                 validatingTitle = "Incorrect"
                 resultMessage = "\(multiplicationTable) x \(multNumbersHard) =  \(correctAnswerHard)"
+                SoundManager.instancce.playSound(sound: .incorrect)
             }
         }
     }

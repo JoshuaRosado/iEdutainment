@@ -6,9 +6,38 @@
 //
 
 import SwiftUI
+import AVKit
 
-
-
+class SoundManager {
+    static let instancce = SoundManager()
+    
+    var player: AVAudioPlayer?
+    
+    enum SoundOption: String {
+        case correct
+        case darkMode
+        case fail
+        case gameMusic
+        case gameSong
+        case incorrect
+        case lightMode
+        case pass
+        case swoosh
+    }
+    
+    func playSound(sound: SoundOption){
+        
+        guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".mp3") else {return}
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+//            player?.numberOfLoops = -1
+        } catch let error {
+            print("Error playing sound. \(error.localizedDescription)")
+        }
+    }
+}
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -27,6 +56,8 @@ struct ContentView: View {
 
     var body: some View {
         if gameStarted{
+            
+            
             
             
             ZStack{
@@ -68,6 +99,11 @@ struct ContentView: View {
                     Mountains()
                 }
             }
+//            .onAppear(perform:  {
+//                SoundManager.instancce.playSound(sound: .lightMode)
+//                    
+//            
+//        })
         }
                 if play{
                     SettingsView()
@@ -77,10 +113,12 @@ struct ContentView: View {
             }
          
     }
+    
     func startGame(){
         gameStarted = false
     }
 }
+
 
 #Preview {
     ContentView()
